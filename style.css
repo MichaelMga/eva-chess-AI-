@@ -1,0 +1,112 @@
+#board{
+
+
+    height: 88vh;
+
+    width: 88vh;
+
+    background: blue;
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 10vw;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+
+}
+
+.rankDiv{
+
+    width: 100%;
+
+    height: 12.5%;
+
+    background: red;
+
+    border: 1px solid;
+
+    display: flex;
+
+    flex-direction: row;
+}
+
+.lightSquareDiv{
+
+    border: solid 1px;
+
+    background: white;
+
+    height: 100%;
+
+    width: 12.5%;
+
+    display: flex;
+    
+    justify-content: center;
+
+    align-items: center;    
+}
+
+.lightSquareDiv img{
+
+    height: 60%;
+
+    width: auto;
+    
+}
+
+
+.darkSquareDiv{
+
+    border: solid 1px;
+
+    background: black;
+
+    height: 100%;
+
+    width: 12.5%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+
+.darkSquareDiv img{
+
+    height: 60%;
+
+    width: auto;
+}
+
+
+#promotionChoiceInterface{
+
+
+    height: 20vh;
+
+    width: 50vh;
+
+    display: flex;
+
+    flex-direction: row;
+
+
+    position: relative;
+
+
+    top: 100vh;
+
+    left: 10vw;
+
+}
