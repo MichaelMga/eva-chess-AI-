@@ -460,3 +460,21 @@ function createMove(from, to, captured, promoted){
      return from | (to << 7) | (captured << 14) | (promoted << 20);
 
   }
+
+
+
+  function mirror64(square){
+
+
+
+   return mirror64[sq];
+
+   
+  }
+
+
+
+
+
+
+  function checkUp();

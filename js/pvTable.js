@@ -1,73 +1,50 @@
-/*
 
-function getPvLine(depth){
 
-  var move = probePvTable();  
+
+
+
+function probePvTable(){
+
+    let index = boardPosKey % PVENTRIES;	
+
+    //get the current poskey of the table, and get an index
+
+    
+    
+    //IF WE FIND A PV MOVE AT THIS POSKEY, WE RETURN IT.
+	if( pvTable[index].posKey == boardPosKey ){
+
+    
+		return pvTable[index].move;
+	}
+    
+    //else 
+
+	return noMove;
 
 }
 
-//THIS FUNCTION RETURNS THE PVMOVE FOR A CERTAIN POSKEY
-
-function probePvTable(){ 
-
-    //Take the current posKey, divide it by the PVENTRIES NUM (10 000). GIVEN THE FACT THE HASH KEYS ARE UNIQUE, WE HAVE A UNIQUE INDEX FOR EACH HASH KEY.
-    //WE HASH THE HASHKEY
-
-    var index = brd_posKey % PVENTRIES;
 
 
-    if(brd_pvTable[index].posKey == brd_posKey){
-        return boardPvTable[index].move;
-    }
-    return NOMOVE;
+function clearPvTable(){
+
+
 }
+
+
+
+
+
 
 
 function storePvMove(move){
 
-    var index = brd_posKey % PVENTRIES;
+    //CREATE AN INDEX FOR THE CURRENT POSKEY, AND STORE AT THIS INDEX, IN THE PV TABLE, THIS MOVE.
 
-    board_pvTable[index].move = move;
-    board_pvTable[index].m
-    ove;
-
-}
+    let pvIndex = boardPosKey * PVENTRIES;
 
 
-function getPvLine(depth){
-
-     //PVMOVE = GET THE PVMOVE FOR THE CURRENT POSITION;
-
-    var move = probePvTable();
-
-    var count = 0;
-
-    while(move != NOMOVE && count < depth){
-
-        //Go from zero to the depth
-
-        if(moveExists(move)) {
-
-            makeMove(move);
-
-            board_pvArray[count] = move;
-
-            count++;
-        
-        } else {
-
-            break;
-        }
-
-        move = probePvTable();
-    }
-
-    return count;
+    pvTable[pvIndex].move = move;
+    pvTable[pvIndex].posKey = boardPosKey;
 
 }
-
-
-
-
-
-*/
