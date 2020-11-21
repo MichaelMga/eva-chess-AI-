@@ -158,7 +158,12 @@ function moveExists(move){
 
 
 
+
    function makeMove(move){
+
+
+    console.log('move made');
+
 
 
 
@@ -192,16 +197,6 @@ function moveExists(move){
          
         let piece = boardSquaresArray[fromSqFromChain].piece;
 
-           console.log('the array is :');
-
-
-        for(i=0; i< 120; i++){
-        
-          console.log( 'the array is :' + i + ':' + boardSquaresArray[i].piece);
-
-        }
-
-         console.log('the from square piece is ' + piece + 'for the move from ' + fromSqFromChain + ' to ' + toSqFromChain );
          
 
          
@@ -233,23 +228,42 @@ function moveExists(move){
 
       piece = boardSquaresArray[toSqFromChain].piece;
 
+
+        console.log('for the piece located on the square ' + toSqFromChain + ' before capture at the group ' + getPieceIndex(piece, sides[activeSideIndex ^ 1]) + ' ' + nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])].length + 'elements in the future captured piece group' )
+        
+        console.log('for the capturing piece located on the square ' + fromSqFromChain + ' before capture at its group '  + getPieceIndex(boardSquaresArray[fromSqFromChain].piece , sides[activeSideIndex]) + ' ' + nonActivePlayerPieceList[getPieceIndex( boardSquaresArray[fromSqFromChain].piece , sides[activeSideIndex])].length + 'elements' );
+
+        console.log('Now, lets check on what square are the pieces in the group we target, knowing we want to eraze the piece on the square ' + toSqFromChain);
+
+
          for(pieceIndex = 0 ; pieceIndex < nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])].length; pieceIndex++){
 
           loopedOnPiece =  nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])][pieceIndex];
 
-          console.log('potential capture move');
 
+              
+          console.log(pieceIndex + ' piece ' + loopedOnPiece.piece + ' square ' + loopedOnPiece.square);
 
+          
+      
           //CHANGE THE FROM SQUARE
 
           if(loopedOnPiece.square == toSqFromChain){
 
+            console.log('found it');
+
             //DELETE THE ELEMENT FROM THE LIST AT THE LOOPED ON INDEX
 
-            nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])].splice(0,pieceIndex);
+            nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])].splice(pieceIndex, 1);
+
             
            }
         }
+
+
+
+        console.log('for the piece located on the square ' + toSqFromChain + 'after capture at the group ' + getPieceIndex(piece, sides[activeSideIndex ^ 1]) + ' ' + nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])].length + 'elements in the captured piece group' )
+
      }
 
 
@@ -287,6 +301,8 @@ function moveExists(move){
 
 
       }
+
+
      
 
 
@@ -294,6 +310,8 @@ function moveExists(move){
 
 
       activeSideIndex ^= 1;
+
+      
 
 
      
@@ -307,6 +325,7 @@ function moveExists(move){
 
     activeSideIndex ^= 1;
 
+  
 
     //REVERSE THE MOVE
      
@@ -320,14 +339,8 @@ function moveExists(move){
 
 
 
-    console.log('move taken back for the piece ' + boardSquaresArray[prevMoveToSq].piece);
 
-
-
-    
-    activePlayerPieceList = sides[activeSideIndex].pieceList;
-
-    nonActivePlayerPieceList = sides[activeSideIndex ^ 1].pieceList;
+    //WE NEED TO TAKE THE MOVE BACK. MEANING WE NEED TO DO TWO THINGS : FIRST, MAKE THE MOVE BACK.
 
 
 
@@ -341,35 +354,40 @@ function moveExists(move){
 
      
     
-/*
+    activePlayerPieceList = sides[activeSideIndex].pieceList;
 
-
+    nonActivePlayerPieceList = sides[activeSideIndex ^ 1].pieceList;
+    
+    
 
      //AFTER THE MOVE IS DONE BACK, ADD THE PIECE THAT WAS DELETED
 
-    if( prevMoveCap & 0x4F != 0){
+    if( prevMoveCap & 0x4F != 0 ){
+
+      console.log('the move that was just taken was a capture move!');
 
       //ADD A PIECE OBJECT AND GIVE IT THE SQUARE TOSQ
 
+      console.log('at the index ' + getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1]) + ' ' + nonActivePlayerPieceList[getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1])].length + ' elements before adding the element');
+
       nonActivePlayerPieceList[getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1])].push({piece:  prevMoveCap, square: prevMoveToSq });
+      
+
+      console.log('at the index ' + getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1]) + ' ' +  nonActivePlayerPieceList[getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1])].length + ' elements after adding the element');
+
 
       boardSquaresArray[prevMoveToSq].piece = prevMoveCap ;
 
 
       addGuiPiece(prevMoveCap , prevMoveToSq);
 
+    
       
     }
 
 
 
-    */
-
-
-
-
-
-   }
+ }
 
 
 

@@ -1,6 +1,6 @@
-var black = {pieceList: [] };
+var black = {pieceList: [] , name: 'black'};
 
-var white = {pieceList: [] };
+var white = {pieceList: [] , name: 'white'};
 
 
 var boardSquaresNum = 120;

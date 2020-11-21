@@ -1,286 +1,337 @@
 function generateMoves(){
 
-    player = sides[activeSideIndex];
+
+  console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
 
 
-    //LOOP ON EVERY PIECE
-
-    //FOR EVERY PIECE
 
 
-    for(pieceGroupIndex=0; pieceGroupIndex < player.pieceList.length ;pieceGroupIndex++){
-
-        pieceGroup = player.pieceList[pieceGroupIndex];
-
-       for(pieceIndex=0; pieceIndex < pieceGroup.length ; pieceIndex++){ 
-
-          checkedPiece = pieceGroup[pieceIndex];
-  
-          fromSquare = checkedPiece.square;
-
-          
-
-        if(player == white){
-            
-          if(checkedPiece.piece == pieces.wP){
-
-              if( boardSquaresArray[checkedPiece.square + 10].piece == pieces.noPiece ){
-
-                toSquare = checkedPiece.square + 10;
+  player = sides[activeSideIndex];
 
 
-                addPawnQuietMove(fromSquare, toSquare);
+  //LOOP ON EVERY PIECE
 
-                
-              }
-
-              
-              if( boardSquaresArray[checkedPiece.square + 20].piece == pieces.noPiece ){
+  //FOR EVERY PIECE
 
 
-                toSquare = checkedPiece.square + 20;
+  for(pieceGroupIndex=0; pieceGroupIndex < player.pieceList.length ;pieceGroupIndex++){
 
-                addPawnQuietMove(fromSquare, toSquare);
-
-              }
-
-
-              if( boardSquaresArray[checkedPiece.square + 11].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square + 11].piece != pieces.offBoard  ){
-                   
-                if(colorsArray[boardSquaresArray[checkedPiece.square + 11].piece] == black){
-
-
-                    toSquare = checkedPiece.square + 11;
-
-                    capturedPiece = boardSquaresArray[toSquare].piece;
-
-
-                        addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
-
-                }
-                
-              }
-
-
-              if( boardSquaresArray[checkedPiece.square + 9].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square + 9].piece != pieces.offBoard  ){
-                   
-                if(colorsArray[boardSquaresArray[checkedPiece.square + 9].piece] == black){
-
-
-                    toSquare = checkedPiece.square + 9;
-
-                    capturedPiece = boardSquaresArray[toSquare].piece;
-
-                    addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
-
-                }
- 
-              }
-
-
-            continue;
-  
-
-          }
-
-
-        } else if (player == black) {    
-            
-            
-            if(checkedPiece.piece == pieces.bP){
-  
-  
-                if( boardSquaresArray[checkedPiece.square - 10 ].piece == pieces.noPiece ){
-
-
-                  toSquare = checkedPiece.square - 10;
-
-
-                  addPawnQuietMove(fromSquare, toSquare);
- 
-                }
-
-                if( boardSquaresArray[checkedPiece.square - 20].piece == pieces.noPiece ){
-  
-
-                  toSquare = checkedPiece.square - 20;
-
-                  addPawnQuietMove(fromSquare, toSquare);
-
-              }
-
-           }
-             
-           if( boardSquaresArray[checkedPiece.square - 11].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square - 11].piece != pieces.offBoard  ){
-                   
-            
-            if(colorsArray[boardSquaresArray[checkedPiece.square - 11].piece] == white ){
-
-                toSquare = checkedPiece.square - 11;
-
-                capturedPiece = boardSquaresArray[checkedPiece.square - 11].piece;
-
-
-                addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
-
-
-            }
-            
-          }
-
-          
-      
-          if( boardSquaresArray[checkedPiece.square - 9].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square - 9].piece != pieces.offBoard  ){
-            
-
-            if(colorsArray[boardSquaresArray[checkedPiece.square - 9].piece] == white ){
-                
-             toSquare = checkedPiece.square - 9;
-             capturedPiece = boardSquaresArray[checkedPiece.square - 9].piece;
-
-
-                addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
-
-            }
-
-          }
     
-       }
+      pieceGroup = player.pieceList[pieceGroupIndex];
+
+      console.log('piece group : ' + pieceGroupIndex + ' length :' + pieceGroup.length);
 
 
-        //OTHER PIECES
+     for(pieceIndex=0; pieceIndex < pieceGroup.length ; pieceIndex++){ 
 
+
+      console.log('piece index ' + pieceIndex + ' piece : ' + pieceGroup[pieceIndex].piece);
+
+
+        checkedPiece = pieceGroup[pieceIndex];
+
+        fromSquare = checkedPiece.square;
 
         
-  if(player == white){
-    
 
-    activePlayerNonSlidingPieces = nonSlidingPieces.white;
+      if(player == white){
+          
+        if(checkedPiece.piece == pieces.wP){
 
-    activePlayerSlidingPieces = slidingPieces.white;
+          console.log('we are checking a white pawn....');
 
+            if( boardSquaresArray[checkedPiece.square + 10].piece == pieces.noPiece ){
 
-  } else {
-
-    activePlayerNonSlidingPieces = nonSlidingPieces.black;
-
-    activePlayerSlidingPieces = slidingPieces.black;
+              toSquare = checkedPiece.square + 10;
 
 
-  }
+              addPawnQuietMove(fromSquare, toSquare);
 
-
-
-      //LOOP ON EACH NON SLIDING PIECE
-
-  for(nonSlidingPieceIndex = 0 ; nonSlidingPieceIndex < activePlayerNonSlidingPieces.length; nonSlidingPieceIndex++){
-      
-    nonSlidingPiece = activePlayerNonSlidingPieces[nonSlidingPieceIndex];
-
-       if(checkedPiece.piece == nonSlidingPiece.piece){
-
-
-
-         directions = nonSlidingPiece.directions;
-
-          //LOOP ON ALL THE DIRECTIONS
-
-          //FOR EACH DIRECTION
-
-         for(directionIndex = 0; directionIndex < directions.length ;directionIndex++){
-               
-            checkedDirection = directions[directionIndex];
-
-            toSquare = fromSquare + checkedDirection;
-
-            if( boardSquaresArray[toSquare].piece == pieces.noPiece){
               
-               addQuietMove(fromSquare, toSquare);
-
-           
-              } else if(boardSquaresArray[toSquare].piece != pieces.offBoard && colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex] ) {
-
-              capturedPiece = boardSquaresArray[toSquare].piece;
-
-              addCaptureMove(fromSquare, toSquare, capturedPiece);
+            }
 
 
+            if(fromSquare <= 38){
+    
+            
+               if( boardSquaresArray[checkedPiece.square + 20].piece == pieces.noPiece ){
 
-           }
+                 toSquare = checkedPiece.square + 20;
+
+                addPawnQuietMove(fromSquare, toSquare);
+
+              }
+
+
+          }
+
+            if( boardSquaresArray[checkedPiece.square + 11].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square + 11].piece != pieces.offBoard  ){
+                 
+              if(colorsArray[boardSquaresArray[checkedPiece.square + 11].piece] == black){
+
+
+                  toSquare = checkedPiece.square + 11;
+
+                  console.log('there is nothing in front of this piece!!');
+
+                  capturedPiece = boardSquaresArray[toSquare].piece;
+
+
+                      addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
+
+              }
+              
+            }
+
+
+            if( boardSquaresArray[checkedPiece.square + 9].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square + 9].piece != pieces.offBoard  ){
+                 
+              if(colorsArray[boardSquaresArray[checkedPiece.square + 9].piece] == black){
+
+                  console.log('white pawn capture move found');
+
+                  toSquare = checkedPiece.square + 9;
+
+                  capturedPiece = boardSquaresArray[toSquare].piece;
+
+                  addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
+
+              }
+
+            }
+
+
+          continue;
+
 
         }
 
-        //IF WE FOUND THE PIECE, NO NEED TO GO FURTHER
 
-       continue; 
+      } else if (player == black) {    
+          
+          
+          if(checkedPiece.piece == pieces.bP){
 
-     }
-
-  }
-
-
-  
-  for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length; slidingPieceIndex++){
-      
-    slidingPiece = activePlayerSlidingPieces[slidingPieceIndex];
-
-       if(checkedPiece.piece == slidingPiece.piece){
-
-        //RECURSION
-        //FOR EACH DIRECTION, IF THE PIECE IS EMPTY, YOU ADD A QUIET MOVE, AND ADD THE DIRECTION NUM
-           
-         directions = slidingPiece.directions;
+            console.log('we are checking a black pawn....');
 
 
-         for(directionIndex = 0; directionIndex < directions.length; directionIndex++){
 
-            checkedDirection = directions[directionIndex];
+              if( boardSquaresArray[checkedPiece.square - 10 ].piece == pieces.noPiece ){
 
-            toSquare = fromSquare + checkedDirection;
 
-             while(boardSquaresArray[toSquare].piece != pieces.offBoard){
-            
-                 if(boardSquaresArray[toSquare].piece == pieces.noPiece){
+                toSquare = checkedPiece.square - 10;
 
-                      addQuietMove(fromSquare, toSquare);
 
-                    //ELSE IT MEANS THERE IS A PIECE, SO POSSIBLE CAPTURE MOVE (IF OPPONENT'S PIECE)
+                addPawnQuietMove(fromSquare, toSquare);
 
-                 } else {
+              }
 
-                      if(colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex]){
 
-                        capturedPiece = boardSquaresArray[toSquare].piece;
+              if(fromSquare >= 81){
+
+                
+                 if( boardSquaresArray[checkedPiece.square - 20].piece == pieces.noPiece ){
+
+
+                    toSquare = checkedPiece.square - 20;
+
+                   addPawnQuietMove(fromSquare, toSquare);
     
-                        addCaptureMove(fromSquare, toSquare, capturedPiece);
-
-                       }  
-
-                  }
-
-                  toSquare += checkedDirection;
-
-               }
-
             }
+
+              }
+
+
+         }
+           
+         if( boardSquaresArray[checkedPiece.square - 11].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square - 11].piece != pieces.offBoard  ){
+                 
+          
+          if(colorsArray[boardSquaresArray[checkedPiece.square - 11].piece] == white ){
+
+              toSquare = checkedPiece.square - 11;
+
+              capturedPiece = boardSquaresArray[checkedPiece.square - 11].piece;
+
+
+              addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
+
+
+          }
+          
+        }
+
+        
+    
+        if( boardSquaresArray[checkedPiece.square - 9].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square - 9].piece != pieces.offBoard  ){
+          
+
+          if(colorsArray[boardSquaresArray[checkedPiece.square - 9].piece] == white ){
+              
+           toSquare = checkedPiece.square - 9;
+           capturedPiece = boardSquaresArray[checkedPiece.square - 9].piece;
+
+
+              addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
 
           }
 
-       }
+        }
+  
+     }
+
+
+      //OTHER PIECES
+
+
+      
+if(player == white){
+  
+
+  activePlayerNonSlidingPieces = nonSlidingPieces.white;
+
+  activePlayerSlidingPieces = slidingPieces.white;
+
+
+} else {
+
+  activePlayerNonSlidingPieces = nonSlidingPieces.black;
+
+  activePlayerSlidingPieces = slidingPieces.black;
+
+
+}
+
+
+
+    //LOOP ON EACH NON SLIDING PIECE
+
+for(nonSlidingPieceIndex = 0 ; nonSlidingPieceIndex < activePlayerNonSlidingPieces.length; nonSlidingPieceIndex++){
+    
+  nonSlidingPiece = activePlayerNonSlidingPieces[nonSlidingPieceIndex];
+
+     if(checkedPiece.piece == nonSlidingPiece.piece){
+
+
+
+       directions = nonSlidingPiece.directions;
+
+        //LOOP ON ALL THE DIRECTIONS
+
+        //FOR EACH DIRECTION
+
+       for(directionIndex = 0; directionIndex < directions.length ;directionIndex++){ 
+
+             
+          checkedDirection = directions[directionIndex];
+
+          toSquare = fromSquare + checkedDirection;
+
+          if( boardSquaresArray[toSquare].piece == pieces.noPiece){
+
+            
+             addQuietMove(fromSquare, toSquare);
+         
+            } else if(boardSquaresArray[toSquare].piece != pieces.offBoard) {
+
+
+              if(colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex] ){
+
+                   
+                 capturedPiece = boardSquaresArray[toSquare].piece;
+
+                 addCaptureMove(fromSquare, toSquare, capturedPiece);
+
+
+              }
+
+
+         }
+
+      }
+
+      //IF WE FOUND THE PIECE, NO NEED TO GO FURTHER
+
+     continue; 
+
+   }
+
+}
+
+
+
+for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length; slidingPieceIndex++){
+    
+  slidingPiece = activePlayerSlidingPieces[slidingPieceIndex];
+
+
+     if(checkedPiece.piece == slidingPiece.piece){
+
+      //RECURSION
+      //FOR EACH DIRECTION, IF THE PIECE IS EMPTY, YOU ADD A QUIET MOVE, AND ADD THE DIRECTION NUM
+         
+       directions = slidingPiece.directions;
+
+
+       for(directionIndex = 0; directionIndex < directions.length; directionIndex++){
+
+          checkedDirection = directions[directionIndex];
+
+          toSquare = fromSquare + checkedDirection;
+
+           while(boardSquaresArray[toSquare].piece != pieces.offBoard){
+          
+               if(boardSquaresArray[toSquare].piece == pieces.noPiece){
+
+                    addQuietMove(fromSquare, toSquare);
+
+                  //ELSE IT MEANS THERE IS A PIECE, SO POSSIBLE CAPTURE MOVE (IF OPPONENT'S PIECE)
+
+                 } else {
+
+                    if(colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex]){
+
+                      capturedPiece = boardSquaresArray[toSquare].piece;
+  
+                      addCaptureMove(fromSquare, toSquare, capturedPiece);
+
+
+                     } 
+
+
+                     //IF THE SQUARE IS NOT EMPTY, STOP ITERATING ON THIS DIRECTION
+
+
+                     break;
+
+
+                }
+
+                toSquare += checkedDirection;
+
+             }
+
+          }
+
+        }
 
      }
 
-     
+   }
+
+   
+      console.log('la taille de la move list : ' + moveList.length);
 
 
 
-    }
-
-
-
-    
   }
 
+  console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' );
+
+
+
+  
+}
 
 
 
@@ -289,121 +340,167 @@ function generateMoves(){
 
 function addQuietMove(fromSquare, toSquare){
 
-  
-     addedMove = createMove(fromSquare, toSquare, pieces.noPiece, pieces.noPiece);
-             
-     moveList.push(addedMove); 
 
- 
+   addedMove = createMove(fromSquare, toSquare, pieces.noPiece, pieces.noPiece);
+
+   console.log('quiet move added from' + fromSquare + 'to : ' + toSquare + 'the moving piece is' + boardSquaresArray[fromSquare] + 'the active side is ' + sides[activeSideIndex].name );
+
+
+   
+   
+   moveList.push(addedMove);
+
+
 }
+
 
 
 function addCaptureMove(fromSquare, toSquare, capturedPiece){
 
 
-  
-  addedMove = createMove(fromSquare, toSquare, capturedPiece, pieces.noPiece);
-             
-  moveList.push(addedMove); 
+console.log('capture move added from' + fromSquare + 'to : ' + toSquare + 'the moving piece is' + boardSquaresArray[fromSquare] + 'the active side is ' + sides[activeSideIndex].name + ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name )+ ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name ;
+
+
+
+
+addedMove = createMove(fromSquare, toSquare, capturedPiece, pieces.noPiece);
+           
+moveList.push(addedMove); 
 
 
 
 
 
 
-  
- }
- 
- 
 
- function addPawnCaptureMove(fromSquare, toSquare, capturedPiece){
+}
 
 
 
-            
-     addedMove = createMove(fromSquare, toSquare, capturedPiece, pieces.noPiece);
-             
-     moveList.push(addedMove); 
+function addPawnCaptureMove(fromSquare, toSquare, capturedPiece){
+
+  console.log('Capture pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name);
+
+
     
+   addedMove = createMove(fromSquare, toSquare, capturedPiece, pieces.noPiece);
+           
+   moveList.push(addedMove); 
+  
+  
+  //IF POSSIBILITY OF PROMOTION
+
+
+
+    if(sides[activeSideIndex] == white){
+
+      prePromotionRank = 6;
+    } else{
+
+      prePromotionRank = 1;
+    }
+   
+
+
+    /*
     
-    //IF POSSIBILITY OF PROMOTION
+   if(ranksSquaresArray[fromSquare].rank == prePromotionRank){
+
+
 
       if(sides[activeSideIndex] == white){
-
-        prePromotionRank = 6;
-      } else{
-
-        prePromotionRank = 1;
+  
+          promotionArray = whitePiecesPromotionArray;
+  
+       } else if(sides[activeSideIndex] == black){
+  
+          promotionArray = blackPiecesPromotionArray;
+  
       }
-     
+  
+      console.log('promotion pieces available : ');
 
-     if(ranksArray[fromSquare] == prePromotionRank){
 
 
-        if(sides[activeSideIndex] == white){
-    
-            promotionArray = whitePiecesPromotionArray;
-    
-         } else if(sides[activeSideIndex] == black){
-    
-            promotionArray = blackPiecesPromotionArray;
-    
-        }
-    
+   for(promotionIndex = 0; promotionIndex < promotionArray.length ; promotionIndex++) {
 
-     for(promotionIndex = 0; promotionIndex < promotionArray.length ; promotionIndex++) {
-    
-             promotionPiece =  promotionArray[promotionIndex];
-    
-             addedMove = createMove(fromSquare, toSquare, capturedPiece,  promotionPiece );
-             
-             moveList.push(addedMove); 
-    
-          }        
-      }
 
+           promotionPiece =  promotionArray[promotionIndex];
+
+           console.log(promotionPiece);
+  
+           addedMove = createMove(fromSquare, toSquare, capturedPiece,  promotionPiece );
+           
+           moveList.push(addedMove); 
+
+  
+        }        
     }
+
+
+    */
+  }
 
 
 
 function addPawnQuietMove(fromSquare, toSquare){
 
-    
-    addedMove = createMove(fromSquare, toSquare, pieces.noPiece, pieces.noPiece);
-            
-    moveList.push(addedMove); 
+  
+  addedMove = createMove(fromSquare, toSquare, pieces.noPiece, pieces.noPiece);
+          
+  moveList.push(addedMove); 
+
+
+  console.log('quiet pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name);
 
 
 
-       
-   
-   //IF POSSIBILITY OF PROMOTION
-
-   if(ranksArray[fromSquare] == 7){
-
-
-
-       if(sides[activeSideIndex] == white){
-   
-           promotionArray = whitePiecesPromotionArray;
-   
-        } else if(sides[activeSideIndex] == black){
-   
-           promotionArray = blackPiecesPromotionArray;
-   
-       }
-   
-   
-          for(promotionIndex = 0; promotionIndex < promotionArray.length ; promotionIndex++) {
-   
-              promotionPiece =  promotionArray[promotionIndex];
-   
-              addedMove = createMove(fromSquare, toSquare, pieces.noPiece,  promotionPiece );
-            
-              moveList.push(addedMove); 
+     
  
-            
-         }  
+ //IF POSSIBILITY OF PROMOTION
+
+
+ /*
+
+   if(sides[activeSideIndex] == white){
+
+      prePromotionRank = 6;
+    } else{
+
+      prePromotionRank = 1;
+    }
+
+ if(ranksSquaresArray[fromSquare].rank == prePromotionRank){
+     
+
+     if(sides[activeSideIndex] == white){
+ 
+         promotionArray = whitePiecesPromotionArray;
+ 
+      } else if(sides[activeSideIndex] == black){
+ 
+         promotionArray = blackPiecesPromotionArray;
+ 
      }
- }
+
+     console.log('promotion pieces available : ');
+ 
+ 
+        for(promotionIndex = 0; promotionIndex < promotionArray.length ; promotionIndex++) {
+
+            promotionPiece =  promotionArray[promotionIndex];
+
+            console.log(promotionPiece);
+
+
+            addedMove = createMove(fromSquare, toSquare, pieces.noPiece,  promotionPiece );
+          
+            moveList.push(addedMove); 
+
+      
+        }  
+     }
+
+    */
+  }
 

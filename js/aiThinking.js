@@ -35,59 +35,31 @@ function searchPosition(){
    //THE POINT OF USING INFINITY, IS TO MAKE SURE THAT IF AN ELEMENT IS HIGHER TO A VARIABLE, IT MEANS IT WAS MODIFIED
      
 
-   makeMove(moveList[0]);
 
-   takeMove(moveList[0]);
 
+for(moveIndex = 0; moveIndex < moveList.length; moveIndex++){
    
-   makeMove(moveList[1]);
-
-   takeMove(moveList[1]);
-
-   makeMove(moveList[3]);
-
-   takeMove(moveList[3]);
-
    
-   makeMove(moveList[4]);
+  makeMove(moveList[moveIndex]);
 
-   takeMove(moveList[4]);
-
-   makeMove(moveList[5]);
-
-   takeMove(moveList[5]);
-
-   
-   makeMove(moveList[6]);
-
-   takeMove(moveList[6]);
-
-   makeMove(moveList[7]);
-
-   takeMove(moveList[7]);
-
-   makeMove(moveList[8]);
-
-   takeMove(moveList[8]);
-
-   makeMove(moveList[9]);
-
-   takeMove(moveList[9]);
-
-   makeMove(moveList[10]);
-
-   takeMove(moveList[10]);
-
-   makeMove(moveList[11]);
-
-   takeMove(moveList[11]);
+  takeMove(moveList[moveIndex]);
 
   
 
 
-  makeMove(moveList[12]);
-   
+  if(moveIndex == (moveList.length - 1)){
 
+
+    console.log('all moves were generated. There were ' + moveList.length);
+
+
+
+  }
+
+
+}
+
+   
 
 
    return bestMove;
