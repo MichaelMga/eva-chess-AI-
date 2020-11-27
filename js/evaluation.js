@@ -2,6 +2,8 @@
 //FUNDAMENTAL PART OF THE ALGORITHM, WHICH DETERMINES HOW THE AI EVALUATES EACH PAWNS POSITION
 
 
+/*
+
 var pawnTable = [
     0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,
     10	,	10	,	0	,	-10	,	-10	,	0	,	10	,	10	,
@@ -69,6 +71,7 @@ var pawnTable = [
     ];
 
 
+    */
 
 
  
@@ -77,9 +80,10 @@ var pawnTable = [
     function evalBoard(){
 
 
+        console.log('evaluating the board...');
 
-        let score = gameBoardMaterial[white] -  gameBoardMaterial[black];
 
+        let score = gameBoardMaterials.white - gameBoardMaterials.black;
 
         let piece ;
 
@@ -89,7 +93,7 @@ var pawnTable = [
 
         let player;
 
-        let boardEvalScore;
+        let individualPieceScore;
 
         let evalBoard;
 
@@ -97,69 +101,98 @@ var pawnTable = [
 
         let pieceScore;
 
+        let boardEvalScore;
+
 
         //FOR EACH SIDE
+        
 
 
-        for(sideIndex=0; sideIndex < 2 ; sideIndex++){
+        for(sideIndex = 0; sideIndex < 2 ; sideIndex++){
+
 
 
             boardEvalScore = 0;
 
             player = sides[sideIndex];   
-            
+
+
+            console.log( 'evaluating the board for the player ' + player.name);
+
+
+
+
+         //FOR EACH PIECE GROUP
+
+
             
             for(pieceGroupIndex=0; pieceGroupIndex < player.pieceList.length ;pieceGroupIndex++){
 
 
+                
 
             
                 pieceGroup = player.pieceList[pieceGroupIndex];
 
                 evalBoard = evalBoardsList[pieceGroupIndex];
+                    
+
+                
+
+                 for(pieceIndex=0; pieceIndex < pieceGroup.length ; pieceIndex++){ 
 
 
-           
-               for(pieceIndex=0; pieceIndex < pieceGroup.length ; pieceIndex++){ 
+   
 
-          
-                  evaluatedPieceSq = pieceGroup[pieceIndex].square;
+                         //FOR EACH PIECE 
+
+
+                         //GET THE APPROPRIATE EVAL ARRAY
+                      
+
+
+                       evaluatedPieceSq = pieceGroup[pieceIndex].square;
+
+
 
 
                   //NOW , GET THE SCORE OF THE PIECE AND ADD IT.
 
 
 
-
-
-                    
-
-
-
                   if( player == white ){
 
                     pieceScore = evalBoard[get120To64Square(evaluatedPieceSq)];
+
+
+                    console.log('piece score :' + pieceScore + ' for the piece ' + pieceGroup[pieceIndex].piece);
+
+
                       
 
                   } else {
 
-
                     pieceScore = evalBoard[mirror64(get120To64Square(evaluatedPieceSq)) ];
+
+                    console.log('piece score :' + pieceScore + ' for the piece ' + pieceGroup[pieceIndex].piece);
+
                     
                   }
 
-
                       //BEFORE ADDING IT, WE CHECK IF THE LOOPED ON PIECE IS A QUEEN.
 
-                  if( pieceGroupIndex == 4 ){
+                  if(pieceGroupIndex == 4){
 
-                        pieceScore = pieceGroup/2;
+                        pieceScore = pieceScore/2;
 
                   }
 
 
 
                   boardEvalScore += pieceScore;
+
+
+                  console.log('the board eval score is ' + boardEvalScore);
 
 
 
@@ -190,6 +223,9 @@ var pawnTable = [
             }
 
 
+            
+
+
 
             if( player == white){
 
@@ -202,16 +238,10 @@ var pawnTable = [
 
 
             }
- 
 
+        }
 
+        console.log(' we evaluated the board. Here is the score : ' + score);
 
     }
-
-
-
-
-
-
-}
 
