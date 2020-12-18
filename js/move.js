@@ -8,10 +8,7 @@ let invalid = 'invalid';
 function clickedSquare(event){
 
      
-
-
-        clickedSquareId = event.currentTarget.id;
-
+    clickedSquareId = event.currentTarget.id;
 
 
         if(selectedFromSquare == null){
@@ -197,9 +194,7 @@ function moveExists(move){
          
         let piece = boardSquaresArray[fromSqFromChain].piece;
 
-         
-
-         
+ 
 
 
          for(pieceIndex = 0 ; pieceIndex < activePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex])].length; pieceIndex++){

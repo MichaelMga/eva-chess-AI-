@@ -29,15 +29,12 @@ function searchPosition(){
 
    for( currentDepth = 1; currentDepth < 2; currentDepth++ ) {		
 
-	   
-	bestScore = alphaBeta( currentDepth , -infinite, infinite);
-
+   	   
+	 bestScore = alphaBeta( currentDepth , -infinite, infinite);
 
 	 alert('iteration ' + currentDepth);
-
-
 	   
-		
+	
 		//bestScore = alphaBeta(-infinite, infinite, currentDepth);
 
 		//Check if the function has to be stopped.
