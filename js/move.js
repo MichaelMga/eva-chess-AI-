@@ -224,7 +224,11 @@ function moveExists(move){
 
     if(captSqFromChain & 0x4F != 0){
 
+
+
       console.log('capture!')
+
+
 
       piece = boardSquaresArray[toSqFromChain].piece;
 
@@ -311,6 +315,13 @@ function moveExists(move){
 
       activeSideIndex ^= 1;
 
+
+
+
+
+
+
+      //AFTER MAKING THE MOVE, UPDATE THE POSKEY
       
 
 
@@ -528,6 +539,13 @@ function moveExists(move){
 
 
       if(side == white){
+
+        if(givenPiece == 13 || givenPiece == 0){
+
+          alert('the piece is an offboard object, or an empty object')
+
+
+        }
         
         return (givenPiece - 1);
 

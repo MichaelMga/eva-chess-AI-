@@ -1,9 +1,18 @@
 function generateMoves(){
 
 
+  //clear the moveList before any move generation
+
+
+  initMoveList();
+
+
+
   console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
 
 
+
+  alert('before generating moves, the moveList has a length of ' + moveList.length);
 
 
   player = sides[activeSideIndex];
@@ -327,6 +336,9 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
 
   }
 
+
+
+
   console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' );
 
 
@@ -440,6 +452,8 @@ function addPawnCaptureMove(fromSquare, toSquare, capturedPiece){
 
 
     */
+
+
   }
 
 

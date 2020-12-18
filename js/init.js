@@ -12,12 +12,17 @@ function init(){
 
     createFilesAndRanksBoard();
 
+    createGameBoardHistory();
+
+    createPvTable();
+
+	//generateMoves();
 
 
-
-    
 
     //HIDE THE PROMOTION CHOICE INTERFACE
     
 
 }
+
+

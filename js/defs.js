@@ -1,5 +1,4 @@
 
-
 //BIT OPERATIONS
 
 
@@ -107,6 +106,19 @@ function createFilesAndRanksBoard(){
 
 function addPieces(){
 
+
+     
+   //CREATE THE PIECE LISTS (USED TO GET SQUARES AND ID OF PIECES OWNED BY EACH PLAYER)
+   
+   //-FILL THE GAMEBOARD MATERIALS
+
+
+
+
+
+
+
+
     //WHITE PIECES
 
      let whitePieceIndex = 0;
@@ -132,6 +144,9 @@ function addPieces(){
 
        whitePawnsArray.push({ piece: pieces.wP, square : squareNum });
 
+       gameBoardMaterials.white += pieceVal[pieces.wP];
+
+       
         whitePieceIndex++;
  
      }
@@ -155,10 +170,19 @@ function addPieces(){
     whiteKnightsArray.push({ piece: pieces.wN, square : get64to120Square(1)});
 
 
+    gameBoardMaterials.white += pieceVal[pieces.wN];
+
+
+
     boardSquaresArray[get64to120Square(6)].piece = pieces.wN;
 
 
     whiteKnightsArray.push({ piece: pieces.wN, square : get64to120Square(6) });
+
+
+    gameBoardMaterials.white += pieceVal[pieces.wN];
+
+    
 
 
     //BISHOPS
@@ -175,10 +199,17 @@ function addPieces(){
     whiteBishopsArray.push({ piece: pieces.wB, square : get64to120Square(2)});
 
 
+    gameBoardMaterials.white += pieceVal[pieces.wB];
+
+
+
     boardSquaresArray[get64to120Square(5)].piece = pieces.wB;
 
 
     whiteBishopsArray.push({ piece: pieces.wB, square : get64to120Square(5) });
+
+    gameBoardMaterials.white += pieceVal[pieces.wB];
+
 
    
     
@@ -198,11 +229,16 @@ function addPieces(){
      whiteRooksArray.push({ piece: pieces.wR, square : get64to120Square(0)});
 
 
+     gameBoardMaterials.white += pieceVal[pieces.wR];
+
+
+
      boardSquaresArray[get64to120Square(7)].piece = pieces.wR;
 
 
      whiteRooksArray.push({ piece: pieces.wR, square : get64to120Square(7) });
 
+     gameBoardMaterials.white += pieceVal[pieces.wR];
 
 
 
@@ -223,18 +259,27 @@ function addPieces(){
 
     whiteQueenArray.push({ piece: pieces.wQ, square : get64to120Square(3)});
 
+    gameBoardMaterials.white += pieceVal[pieces.wQ];
+
+
 
     //KING
 
     var whiteKingArray = [];
 
     white.pieceList.push(whiteKingArray);
+
+
     
 
     boardSquaresArray[get64to120Square(4)].piece = pieces.wK;
 
 
     whiteKingArray.push({ piece: pieces.wK, square : get64to120Square(4)});
+
+
+    gameBoardMaterials.white += pieceVal[pieces.wK];
+
 
 
 
@@ -264,6 +309,8 @@ function addPieces(){
 
         blackPawnsArray.push({ piece: pieces.bP, square : squareNum });
 
+        gameBoardMaterials.black += pieceVal[pieces.bP];
+
         blackPieceIndex++;
 
      }
@@ -278,18 +325,24 @@ function addPieces(){
     
 
 
-
     
     boardSquaresArray[get64to120Square(57)].piece = pieces.bN;
 
 
     blackKnightsArray.push({ piece: pieces.bN, square : get64to120Square(57)});
 
+    gameBoardMaterials.black += pieceVal[pieces.bN];
+
+
 
     boardSquaresArray[get64to120Square(62)].piece = pieces.bN;
 
 
     blackKnightsArray.push({ piece: pieces.bN, square : get64to120Square((62)) });
+
+
+    gameBoardMaterials.black += pieceVal[pieces.bN];
+
 
 
     //BISHOPS
@@ -305,11 +358,18 @@ function addPieces(){
 
     blackBishopsArray.push({ piece: pieces.bB, square : get64to120Square(58)});
 
+    gameBoardMaterials.black += pieceVal[pieces.bB];
+
+
 
     boardSquaresArray[get64to120Square(61)].piece = pieces.bB;
 
 
     blackBishopsArray.push({ piece: pieces.bB, square : get64to120Square(61) });
+
+
+    gameBoardMaterials.black += pieceVal[pieces.bB];
+
     
 
 
@@ -326,11 +386,18 @@ function addPieces(){
 
     blackRooksArray.push({ piece: pieces.bR, square : get64to120Square(56) });
 
+    gameBoardMaterials.black += pieceVal[pieces.bR];
+
+
 
     boardSquaresArray[get64to120Square(63)].piece = pieces.bR;
 
 
     blackRooksArray.push({ piece: pieces.bR, square :  get64to120Square(63) });
+
+
+    gameBoardMaterials.black += pieceVal[pieces.bR];
+
 
 
 
@@ -350,6 +417,11 @@ function addPieces(){
     blackQueenArray.push({ piece: pieces.bQ, square : get64to120Square(59)});
 
 
+    gameBoardMaterials.black += pieceVal[pieces.bQ];
+
+
+
+
     //KING
 
 
@@ -362,6 +434,13 @@ function addPieces(){
 
     
     blackKingArray.push({ piece: pieces.bK, square :  get64to120Square(60)});
+
+    gameBoardMaterials.black += pieceVal[pieces.bK];
+
+
+
+
+
 
 }
 
@@ -414,6 +493,10 @@ function ranksArray(){
 
 
 
+
+
+
+
 function getSquare(rank, file){
 
     return (21 + (10*rank) + file);
@@ -429,9 +512,9 @@ function get64to120Square(square){
 
 function get120To64Square(square){
 
-    //WE NEED TO KNOW, WHERE THIS VALUE IS LOCATED IN THE ARRAY.
-
-    console.log(boardSquaresArray[square].sixtyFourIndex);
+    //WE NEED TO KNOW, WHERE THIS VALUE IS LOCATED IN THE ARRAY
+    
+    return boardSquaresArray[square].sixtyFourIndex;
 
 }
 
@@ -466,8 +549,7 @@ function createMove(from, to, captured, promoted){
   function mirror64(square){
 
 
-
-   return mirror64[sq];
+   return mirror64Table[square];
 
    
   }
@@ -477,4 +559,36 @@ function createMove(from, to, captured, promoted){
 
 
 
-  function checkUp();
+  function checkUp(){
+
+
+  }
+
+
+  
+function createGameBoardHistory(){
+
+	for(i = 0; i < maxGameMoves; i++) {
+		boardHistory.push({
+			move : noMove,
+			castlePerm : 0,
+			posKey : 0
+		}); 
+	}
+}
+
+
+
+
+
+function createPvTable(){
+
+
+    for(i=0; i < pvEntries; i++){
+
+        pvTable.push({move: noMove, posKey : 0});
+    }
+
+
+}
+

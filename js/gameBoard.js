@@ -22,6 +22,9 @@ var KingDirections = [ -1, -10,	1, 10, -9, -11, 11, 9 ];
 
 var numOfDirections = [ 0, 0, 8, 4, 4, 8, 8, 0, 8, 4, 4, 8, 8 ];
 
+
+
+
 /*
 loopSlidePieces = [pieces.blackQueen, pieces.blackBishop, pieces.blackRook, 0 , pieces.whiteQueen, pieces.whiteBishop, pieces.whiteRook];
 

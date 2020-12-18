@@ -17,7 +17,6 @@ var noMove = 'noMove';
 
 
 
-
 var activeSideIndex = 0;
 
 
@@ -54,7 +53,9 @@ var legal;
 var boardPly;
 
 
-var boardPosKey;
+var boardPosKey = 0;
+
+
 
 
 
@@ -69,6 +70,9 @@ colorsArray = [ 0 , white,  white , white, white, white, white , black , black ,
 var pieces =  { noPiece : 0 , wP :  1,  wN : 2 , wB :  3 , wR : 4, wQ : 5, wK : 6 , bP : 7 , bN : 8  , bB : 9 , bR : 10 , bQ : 11 , bK : 12 , offBoard: 13 };
 
 
+   //PIECE VALUES
+
+var pieceVal = [ 0, 100, 325, 325, 550, 1000, 50000, 100, 325, 325, 550, 1000, 50000  ];
 
 
 
@@ -202,8 +206,6 @@ var activePlayerPieceList;
 
 var nonActivePlayerPieceList;
 
-var pieceGroup;
-
 var loopedOnPiece;
 
 var capPiece;
@@ -220,9 +222,16 @@ var score;
 
 var infinite = 30000;
 
+var maxGameMoves = 2048;
+
 var pvTable = [];
 
 var boardSearchHistory = new Array(14 * boardSquaresNum);
+
+var boardHistory = [];
+
+
+
 
 //PROMOTION GUI INTERFACE
 
@@ -245,6 +254,9 @@ var thinkingTime = 1000;
 
 var depth;
 
+var MAXDEPTH
+
+
 var bestScore;
 
 var bestSearchedMove;
@@ -258,14 +270,128 @@ var aiMove;
 
 
 
+
+//SEARCH (VALUE SET BACK TO 0 BEFORE EACH SEARCH) => clearForSearch()
+
+
+var searchedNodes;
+var searchFh;
+var searchFhf;
+var searchStart;
+var stopSearch;
+
+
+
+var pvEntries = 10000;
+
+
+
+
+
+
+
+
 //EVALUATION
+
+
+     //GameBoard Materials initial object
+
+
+
+
+     gameBoardMaterials = {white: 0, black: 0};
+
+
+
+         //TABLES
+
+
+
+
+         
+
+var pawnTable = [
+    0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,
+    10	,	10	,	0	,	-10	,	-10	,	0	,	10	,	10	,
+    5	,	0	,	0	,	5	,	5	,	0	,	0	,	5	,
+    0	,	0	,	10	,	20	,	20	,	10	,	0	,	0	,
+    5	,	5	,	5	,	10	,	10	,	5	,	5	,	5	,
+    10	,	10	,	10	,	20	,	20	,	10	,	10	,	10	,
+    20	,	20	,	20	,	30	,	30	,	20	,	20	,	20	,
+    0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	
+    ];
+    
+    var knightTable = [
+    0	,	-10	,	0	,	0	,	0	,	0	,	-10	,	0	,
+    0	,	0	,	0	,	5	,	5	,	0	,	0	,	0	,
+    0	,	0	,	10	,	10	,	10	,	10	,	0	,	0	,
+    0	,	0	,	10	,	20	,	20	,	10	,	5	,	0	,
+    5	,	10	,	15	,	20	,	20	,	15	,	10	,	5	,
+    5	,	10	,	10	,	20	,	20	,	10	,	10	,	5	,
+    0	,	0	,	5	,	10	,	10	,	5	,	0	,	0	,
+    0	,	0	,	0	,	0	,	0	,	0	,	0	,	0		
+    ];
+    
+    var bishopTable = [
+    0	,	0	,	-10	,	0	,	0	,	-10	,	0	,	0	,
+    0	,	0	,	0	,	10	,	10	,	0	,	0	,	0	,
+    0	,	0	,	10	,	15	,	15	,	10	,	0	,	0	,
+    0	,	10	,	15	,	20	,	20	,	15	,	10	,	0	,
+    0	,	10	,	15	,	20	,	20	,	15	,	10	,	0	,
+    0	,	0	,	10	,	15	,	15	,	10	,	0	,	0	,
+    0	,	0	,	0	,	10	,	10	,	0	,	0	,	0	,
+    0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	
+    ];
+    
+    var rookTable = [
+    0	,	0	,	5	,	10	,	10	,	5	,	0	,	0	,
+    0	,	0	,	5	,	10	,	10	,	5	,	0	,	0	,
+    0	,	0	,	5	,	10	,	10	,	5	,	0	,	0	,
+    0	,	0	,	5	,	10	,	10	,	5	,	0	,	0	,
+    0	,	0	,	5	,	10	,	10	,	5	,	0	,	0	,
+    0	,	0	,	5	,	10	,	10	,	5	,	0	,	0	,
+    25	,	25	,	25	,	25	,	25	,	25	,	25	,	25	,
+    0	,	0	,	5	,	10	,	10	,	5	,	0	,	0		
+    ];
+    
+    var kingE = [	
+        -50	,	-10	,	0	,	0	,	0	,	0	,	-10	,	-50	,
+        -10,	0	,	10	,	10	,	10	,	10	,	0	,	-10	,
+        0	,	10	,	20	,	20	,	20	,	20	,	10	,	0	,
+        0	,	10	,	20	,	40	,	40	,	20	,	10	,	0	,
+        0	,	10	,	20	,	40	,	40	,	20	,	10	,	0	,
+        0	,	10	,	20	,	20	,	20	,	20	,	10	,	0	,
+        -10,	0	,	10	,	10	,	10	,	10	,	0	,	-10	,
+        -50	,	-10	,	0	,	0	,	0	,	0	,	-10	,	-50	
+    ];
+    
+    var kingO = [	
+        0	,	5	,	5	,	-10	,	-10	,	0	,	10	,	5	,
+        -30	,	-30	,	-30	,	-30	,	-30	,	-30	,	-30	,	-30	,
+        -50	,	-50	,	-50	,	-50	,	-50	,	-50	,	-50	,	-50	,
+        -70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70	,
+        -70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70	,
+        -70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70	,
+        -70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70	,
+        -70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70	,	-70		
+    ];
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 //mirror of the white 64 squares
 
-var mirror64 = [
+var mirror64Table = [
     56	,	57	,	58	,	59	,	60	,	61	,	62	,	63	,
     48	,	49	,	50	,	51	,	52	,	53	,	54	,	55	,
     40	,	41	,	42	,	43	,	44	,	45	,	46	,	47	,
@@ -277,11 +403,15 @@ var mirror64 = [
     ];
 
 
-
     //BISHOP PAIR BONUS
 
 
     var bishopPairBonus = 40;
+
+
+
+
+
 
     
 
