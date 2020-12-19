@@ -825,3 +825,9 @@ function addPawnQuietMove(fromSquare, toSquare){
 
 
 
+
+    function initMoveList(){
+       
+      moveList = [];
+
+    }

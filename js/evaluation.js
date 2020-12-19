@@ -8,6 +8,7 @@
 
 
 
+
         let score = gameBoardMaterials.white - gameBoardMaterials.black;
 
         let piece ;
@@ -164,10 +165,12 @@
 
         }
 
+        
+
+        console.log(' we evaluated the board. Here is the score : ' + score);
+
 
         return score;
-
-        alert(' we evaluated the board. Here is the score : ' + score);
 
 
     }

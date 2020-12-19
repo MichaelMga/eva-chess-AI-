@@ -47,9 +47,6 @@ var stopSearch;
 
 
 
-var legal;
-
-
 var boardPly;
 
 

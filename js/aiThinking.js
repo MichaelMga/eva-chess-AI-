@@ -1,7 +1,8 @@
 
 function startAiThinking(){
 
-   searchPosition();
+	stopSearch = false;
+	searchPosition();
 
  }
 
@@ -10,7 +11,8 @@ function startAiThinking(){
 function searchPosition(){
 
 
-	let bestMove = noMove;
+	var bestMove = noMove;
+
 	let bestScore = -infinite;
 	let currentDepth = 0;
 	let pvNum = 0;
@@ -23,6 +25,7 @@ function searchPosition(){
 
 	//EXECUTE THE ALPHABETA FUNCTION A CERTAIN NUMBER OF TIMES ACCORDING TO THE DESIRED DEPTH
 
+	console.log('before the search , the poskey was ' + boardPosKey);
 
 
    for( currentDepth = 1; currentDepth < 2; currentDepth++ ) {		
@@ -30,24 +33,36 @@ function searchPosition(){
    	   
 	 bestScore = alphaBeta( currentDepth , -infinite, infinite);
 
-	   
-	
+	 console.log('after the search , the poskey is ' + boardPosKey);
+		
 		//bestScore = alphaBeta(-infinite, infinite, currentDepth);
 
 		//Check if the function has to be stopped.
 
+		
 		if(stopSearch == true){
+
+			console.log('times up!!');
 			
 			break;
 		 } 
 
+		 
 		//Get a Pv line, that will be used in the alpha beta function
 
 
 		//AFTER MAKING AN ALPHABETA ITERATION, GET THE BEST MOVE FOR THE POSITION
-	
-		bestMove = probePvTable();
 
+
+		
+	
+		//bestMove = probePvTable();
+
+
+
+		//alert('the best move that was found is ' + bestMove);
+
+	
 
 		//console.log('the best move is ' + bestMove);
 
@@ -61,12 +76,13 @@ function searchPosition(){
 			line += (" Ordering:" + ((srch_fhf/srch_fh)*100).toFixed(2) + "%");
 
 		}
+
+
 		console.log(line);
 
-				return bestMove;
-
-
 		*/
+
+				//return bestMove;
 			
 		
 	}	
@@ -79,58 +95,42 @@ function searchPosition(){
 function alphaBeta(depth, alpha, beta){
 
 
-
-
 	let oldAlpha = alpha;
 
+	let legal = 0;
 
-	
 
 
 	if(depth <= 0){
 
-		console.log('reaching a leaf node...');
-
 		//WHEN DEPTH IS AT 0, RETURN THE EVALUATION.
-		return evalBoard();
+		//return evalBoard();
+
+		return;
 
 
 	}
-
-
 
 
 
 	//IMPORTANT, CHECK IF THE FUNCTION NEEDS TO STOP AFTER CHECKING 2047 nodes
 
-  /*
-	
+	/*
 	if(searchedNodes & 2048 != 0){
 
 		checkUp();
 	}
 
-
+	
 	*/
 	
-	
-
-
-
-
 	generateMoves();
 
 
-
-
-	   let score;
+	let score;
 	   
 	  //LOOP ON EVERY MOVE OF THE MOVE LIST
 
-
-
-
-		
 
   	for(i = 0 ; i < moveList.length; i++){	
 
@@ -142,38 +142,66 @@ function alphaBeta(depth, alpha, beta){
 
         if (makeMove(moveList[i]) == false) {
 
+			//IF THIS MOVE CAN'T BE DONE, MOVE INVALID STOP AND CHECK THE NEXT MOVE IN THE LIST IF THERE IS ONE
+
+			alert('this move couldnt be done');
+
+		    continue;
 			
+		} else{
 			
-			  //IF THIS MOVE CAN'T BE DONE, MOVE INVALID STOP AND CHECK THE NEXT MOVE IN THE LIST IF THERE IS ONE
-
-		 	 continue;
+			//legal++;
+			//the beta of the opponent being the reverse of its alpha, the reverse of the opponent's beta is the players alpha, and the players beta is the reverse of the opponents alpha.
 			
+			score = -alphaBeta(depth-1, -beta, -alpha);		
 
-		} 
+			takeMove(moveList[i]);
 
-        
-		legal++;
+			/*
+			if(stopSearch == true){ 
+				return 0;	
+			}	
+			*/
 
-		//the beta of the opponent being the reverse of its alpha, the reverse of the opponent's beta is the players alpha, and the players beta is the reverse of the opponents alpha.
+		}
+
+				 /*
+
+
+			
+		if(score > alpha){
+
+			alpha = score;
+
+			bestMove = moveList[i];
+	
+		 }
+
 		
-		score = -alphaBeta(depth-1, -beta, -alpha);
+		if(alpha != oldAlpha) {		
+	
+			storePvMove(bestMove);
+		}
 
-		takeMove(moveList[i]);
-
-		if(stopSearch == true){ 
-
-			return 0;	
+		*/
 		
-		}			
-		
+			
+	
+	}
 
 
 		//If we find a best move for this score.
+
+				  /*
+
+
 
 
 		if(score > alpha) {
 
 
+
+           
 
 			if(score >= beta) {
 
@@ -201,6 +229,9 @@ function alphaBeta(depth, alpha, beta){
 				return beta;
 			}
 
+
+
+
 			//IF THIS IS A BEST MOVE BUT THERE ARE NO PRUNNING
 
 
@@ -209,7 +240,6 @@ function alphaBeta(depth, alpha, beta){
 
 			//IF THERE IS NO PRUNNING, BUT THERE IS A CAPTURE
 
-
 		 	if( (CAPTURED(bestMove) & 0x4F) != 0) {
 
 				//STORE THE MOVE AT A UNIQUE INDEX IN THE HISTORY (FROMPIECE * 120 + TOSQ) and add the current depth we are checking to it.
@@ -217,11 +247,17 @@ function alphaBeta(depth, alpha, beta){
 				boardSearchHistory[ boardSquaresArray[FROMSQ(bestMove)].piece * boardSquaresNum + TOSQ(BestMove) ] += depth;
 
 			}
-	      }		
-	   }
+
+		  }		
+		  
+			*/
+
 
 
 	//IF THERE WERE NO LEGAL MOVES AT ALL IN THE LIST
+
+
+	/*
 	 
 	if(legal == 0) {
 
@@ -241,22 +277,17 @@ function alphaBeta(depth, alpha, beta){
 	}
 
 
+	*/
+
+
 
 	//IMPORTANT PART : IF WE FIND A BEST MOVE, WE FILL THE PV ARRAY AT THE CURRENT POSKEY (which will be useful for the further iterations)
-	
-	if(alpha != oldAlpha) {		
 
-		storePvMove(bestMove);
-	}
-	
+   
+
+   return alpha;
 
 
-
-
-	return alpha;
-
-
-	
 
 }
 
@@ -506,12 +537,3 @@ function alphaBeta(alpha, beta){
 
 	}
 
-
-	function initMoveList(){
-
-
-		moveList = [];
-
-
-
-	}

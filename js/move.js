@@ -33,7 +33,7 @@ function clickedSquare(event){
                //CHANGE THE BOARD SIDE
                 
                
-               //startAiThinking();
+               startAiThinking();
 
 
                  //AFTER THE PLAYER CLICK ON THE SECOND SQUARE, THE AI STARTS THINKING;
@@ -201,8 +201,6 @@ function moveExists(move){
           
          
 
- 
-
 
          for(pieceIndex = 0 ; pieceIndex < activePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex])].length; pieceIndex++){
 
@@ -228,7 +226,7 @@ function moveExists(move){
 
 
 
-      console.log('capture!');
+      alert('capture!');
 
 
 
@@ -386,6 +384,12 @@ function moveExists(move){
       boardSquaresArray[prevMoveToSq].piece = prevMoveCap ;
 
 
+      //rehash the piece in
+
+
+      hashPiece( prevMoveCap , fromSqFromChain);
+
+
       addGuiPiece(prevMoveCap , prevMoveToSq);
     
       
@@ -527,9 +531,9 @@ function moveExists(move){
 
 
 
+
+
    function getPieceIndex(givenPiece, side){
-
-
 
 
       if(side == white){
