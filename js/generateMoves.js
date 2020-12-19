@@ -12,7 +12,7 @@ function generateMoves(){
 
 
 
-  alert('before generating moves, the moveList has a length of ' + moveList.length);
+  console.log('before generating moves, the moveList has a length of ' + moveList.length);
 
 
   player = sides[activeSideIndex];

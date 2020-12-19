@@ -53,7 +53,7 @@ var legal;
 var boardPly;
 
 
-var boardPosKey = 0;
+var boardPosKey;
 
 
 
@@ -269,8 +269,6 @@ var aiMove;
 
 
 
-
-
 //SEARCH (VALUE SET BACK TO 0 BEFORE EACH SEARCH) => clearForSearch()
 
 
@@ -285,9 +283,9 @@ var stopSearch;
 var pvEntries = 10000;
 
 
+var pieceKeys = new Array(14 * 120);
 
-
-
+var castleKeys = new Array(16);
 
 
 

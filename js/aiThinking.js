@@ -23,8 +23,6 @@ function searchPosition(){
 
 	//EXECUTE THE ALPHABETA FUNCTION A CERTAIN NUMBER OF TIMES ACCORDING TO THE DESIRED DEPTH
 
-	alert('iteration...');
-
 
 
    for( currentDepth = 1; currentDepth < 2; currentDepth++ ) {		
@@ -32,7 +30,6 @@ function searchPosition(){
    	   
 	 bestScore = alphaBeta( currentDepth , -infinite, infinite);
 
-	 alert('iteration ' + currentDepth);
 	   
 	
 		//bestScore = alphaBeta(-infinite, infinite, currentDepth);
@@ -52,7 +49,7 @@ function searchPosition(){
 		bestMove = probePvTable();
 
 
-		//alert('the best move is ' + bestMove);
+		//console.log('the best move is ' + bestMove);
 
 
 		//line = ("Depth:" + currentDepth + " best:" + PrMove(bestMove) + " Score:" + bestScore + " nodes:" + searchNodes); 
@@ -92,7 +89,7 @@ function alphaBeta(depth, alpha, beta){
 
 	if(depth <= 0){
 
-		alert('reaching a leaf node...');
+		console.log('reaching a leaf node...');
 
 		//WHEN DEPTH IS AT 0, RETURN THE EVALUATION.
 		return evalBoard();
@@ -106,15 +103,16 @@ function alphaBeta(depth, alpha, beta){
 
 	//IMPORTANT, CHECK IF THE FUNCTION NEEDS TO STOP AFTER CHECKING 2047 nodes
 
-
-	/*
+  /*
+	
 	if(searchedNodes & 2048 != 0){
 
 		checkUp();
 	}
 
 
-	*/	
+	*/
+	
 	
 
 
@@ -143,6 +141,8 @@ function alphaBeta(depth, alpha, beta){
 		//IF THE MOVE ISNT VALID, THEN, CONTINUE ON THE MOVELIST
 
         if (makeMove(moveList[i]) == false) {
+
+			
 			
 			  //IF THIS MOVE CAN'T BE DONE, MOVE INVALID STOP AND CHECK THE NEXT MOVE IN THE LIST IF THERE IS ONE
 
@@ -173,7 +173,6 @@ function alphaBeta(depth, alpha, beta){
 
 		if(score > alpha) {
 
-			alert('alpha improved')
 
 
 			if(score >= beta) {
@@ -252,8 +251,6 @@ function alphaBeta(depth, alpha, beta){
 	
 
 
-
-	alert('alpha =>' + alpha);
 
 
 	return alpha;
@@ -504,7 +501,7 @@ function alphaBeta(alpha, beta){
 	function checkUp(){
 
 
-		alert("is the time over?");
+		console.log("is the time over?");
 
 
 	}

@@ -33,7 +33,7 @@ function clickedSquare(event){
                //CHANGE THE BOARD SIDE
                 
                
-               startAiThinking();
+               //startAiThinking();
 
 
                  //AFTER THE PLAYER CLICK ON THE SECOND SQUARE, THE AI STARTS THINKING;
@@ -77,7 +77,7 @@ function moveValidity(fromSquare, toSquare){
 
       } else {
 
-        console.log('invalid move');
+        alert('invalid move');
 
       }
 
@@ -175,6 +175,12 @@ function moveExists(move){
      promotedSqFromChain =  PROMOTED(move);
 
 
+     let piece = boardSquaresArray[fromSqFromChain].piece;
+
+
+     hashPiece(piece, fromSqFromChain);
+
+     hashPiece(piece, toSqFromChain );
 
       
     //EMPTY THE PIECELIST
@@ -185,6 +191,8 @@ function moveExists(move){
 
     nonActivePlayerPieceList = sides[activeSideIndex ^ 1].pieceList;
 
+
+
     
 
     //LOOP ON THE MOVELIST
@@ -192,7 +200,6 @@ function moveExists(move){
          //ACCORDING TO THE PIECE, THE ELEMENT WILL BE LOCATED AT A CERTAIN SPOT IN THE MOVE LIST
           
          
-        let piece = boardSquaresArray[fromSqFromChain].piece;
 
  
 
@@ -221,23 +228,19 @@ function moveExists(move){
 
 
 
-      console.log('capture!')
+      console.log('capture!');
 
 
 
-      piece = boardSquaresArray[toSqFromChain].piece;
+      let capturedPiece = boardSquaresArray[toSqFromChain].piece;
+
+      hashPiece(capturedPiece, toSqFromChain );
 
 
-        console.log('for the piece located on the square ' + toSqFromChain + ' before capture at the group ' + getPieceIndex(piece, sides[activeSideIndex ^ 1]) + ' ' + nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])].length + 'elements in the future captured piece group' )
-        
-        console.log('for the capturing piece located on the square ' + fromSqFromChain + ' before capture at its group '  + getPieceIndex(boardSquaresArray[fromSqFromChain].piece , sides[activeSideIndex]) + ' ' + nonActivePlayerPieceList[getPieceIndex( boardSquaresArray[fromSqFromChain].piece , sides[activeSideIndex])].length + 'elements' );
 
-        console.log('Now, lets check on what square are the pieces in the group we target, knowing we want to eraze the piece on the square ' + toSqFromChain);
+         for(pieceIndex = 0 ; pieceIndex < nonActivePlayerPieceList[getPieceIndex(capturedPiece, sides[activeSideIndex ^ 1])].length; pieceIndex++){
 
-
-         for(pieceIndex = 0 ; pieceIndex < nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])].length; pieceIndex++){
-
-          loopedOnPiece =  nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])][pieceIndex];
+          loopedOnPiece =  nonActivePlayerPieceList[getPieceIndex(capturedPiece, sides[activeSideIndex ^ 1])][pieceIndex];
 
 
               
@@ -253,7 +256,7 @@ function moveExists(move){
 
             //DELETE THE ELEMENT FROM THE LIST AT THE LOOPED ON INDEX
 
-            nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])].splice(pieceIndex, 1);
+            nonActivePlayerPieceList[getPieceIndex(capturedPiece, sides[activeSideIndex ^ 1])].splice(pieceIndex, 1);
 
             
            }
@@ -261,7 +264,6 @@ function moveExists(move){
 
 
 
-        console.log('for the piece located on the square ' + toSqFromChain + 'after capture at the group ' + getPieceIndex(piece, sides[activeSideIndex ^ 1]) + ' ' + nonActivePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex ^ 1])].length + 'elements in the captured piece group' )
 
      }
 
@@ -370,7 +372,6 @@ function moveExists(move){
 
     if( prevMoveCap & 0x4F != 0 ){
 
-      console.log('the move that was just taken was a capture move!');
 
       //ADD A PIECE OBJECT AND GIVE IT THE SQUARE TOSQ
 
@@ -386,11 +387,9 @@ function moveExists(move){
 
 
       addGuiPiece(prevMoveCap , prevMoveToSq);
-
     
       
     }
-
 
 
  }

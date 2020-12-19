@@ -12,6 +12,8 @@
 
 <script src = 'js/pvTable.js' ></script>
 
+<script src = 'js/hash.js' ></script>
+
 <script src='js/aiThinking.js'></script>
 
 <script src='js/move.js'></script>

@@ -16,11 +16,8 @@ function init(){
 
     createPvTable();
 
-	//generateMoves();
+    generateHashKeys();
 
-
-
-    //HIDE THE PROMOTION CHOICE INTERFACE
     
 
 }
