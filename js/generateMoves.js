@@ -4,8 +4,7 @@ function generateMoves(){
   //clear the moveList before any move generation
 
 
-  initMoveList();
-
+  let moveList = [];
 
 
   console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
@@ -54,7 +53,7 @@ function generateMoves(){
               toSquare = checkedPiece.square + 10;
 
 
-              addPawnQuietMove(fromSquare, toSquare);
+              addPawnQuietMove(fromSquare, toSquare ,  moveList);
 
               
             }
@@ -67,7 +66,7 @@ function generateMoves(){
 
                  toSquare = checkedPiece.square + 20;
 
-                addPawnQuietMove(fromSquare, toSquare);
+                addPawnQuietMove(fromSquare, toSquare ,  moveList);
 
               }
 
@@ -86,7 +85,7 @@ function generateMoves(){
                   capturedPiece = boardSquaresArray[toSquare].piece;
 
 
-                      addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
+                      addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList);
 
               }
               
@@ -103,7 +102,7 @@ function generateMoves(){
 
                   capturedPiece = boardSquaresArray[toSquare].piece;
 
-                  addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
+                  addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList);
 
               }
 
@@ -131,7 +130,7 @@ function generateMoves(){
                 toSquare = checkedPiece.square - 10;
 
 
-                addPawnQuietMove(fromSquare, toSquare);
+                addPawnQuietMove(fromSquare, toSquare ,  moveList);
 
               }
 
@@ -144,7 +143,7 @@ function generateMoves(){
 
                     toSquare = checkedPiece.square - 20;
 
-                   addPawnQuietMove(fromSquare, toSquare);
+                   addPawnQuietMove(fromSquare, toSquare ,  moveList);
     
             }
 
@@ -162,7 +161,7 @@ function generateMoves(){
               capturedPiece = boardSquaresArray[checkedPiece.square - 11].piece;
 
 
-              addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
+              addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList);
 
 
           }
@@ -180,7 +179,7 @@ function generateMoves(){
            capturedPiece = boardSquaresArray[checkedPiece.square - 9].piece;
 
 
-              addPawnCaptureMove(fromSquare, toSquare, capturedPiece);
+              addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList);
 
           }
 
@@ -240,7 +239,7 @@ for(nonSlidingPieceIndex = 0 ; nonSlidingPieceIndex < activePlayerNonSlidingPiec
           if( boardSquaresArray[toSquare].piece == pieces.noPiece){
 
             
-             addQuietMove(fromSquare, toSquare);
+             addQuietMove(fromSquare, toSquare ,  moveList);
          
             } else if(boardSquaresArray[toSquare].piece != pieces.offBoard) {
 
@@ -250,7 +249,7 @@ for(nonSlidingPieceIndex = 0 ; nonSlidingPieceIndex < activePlayerNonSlidingPiec
                    
                  capturedPiece = boardSquaresArray[toSquare].piece;
 
-                 addCaptureMove(fromSquare, toSquare, capturedPiece);
+                 addCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList);
 
 
               }
@@ -293,7 +292,7 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
           
                if(boardSquaresArray[toSquare].piece == pieces.noPiece){
 
-                    addQuietMove(fromSquare, toSquare);
+                    addQuietMove(fromSquare, toSquare,  moveList);
 
                   //ELSE IT MEANS THERE IS A PIECE, SO POSSIBLE CAPTURE MOVE (IF OPPONENT'S PIECE)
 
@@ -303,7 +302,7 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
 
                       capturedPiece = boardSquaresArray[toSquare].piece;
   
-                      addCaptureMove(fromSquare, toSquare, capturedPiece);
+                      addCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList);
 
 
                      } 
@@ -341,7 +340,8 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
 
   console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' );
 
-
+ 
+  return moveList;
 
   
 }
@@ -351,7 +351,7 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
 
 
 
-function addQuietMove(fromSquare, toSquare){
+function addQuietMove(fromSquare, toSquare, moveList){
 
 
    addedMove = createMove(fromSquare, toSquare, pieces.noPiece, pieces.noPiece);
@@ -368,7 +368,7 @@ function addQuietMove(fromSquare, toSquare){
 
 
 
-function addCaptureMove(fromSquare, toSquare, capturedPiece){
+function addCaptureMove(fromSquare, toSquare, capturedPiece, moveList){
 
 
 console.log('capture move added from' + fromSquare + 'to : ' + toSquare + 'the moving piece is' + boardSquaresArray[fromSquare] + 'the active side is ' + sides[activeSideIndex].name + ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name )+ ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name ;
@@ -390,7 +390,7 @@ moveList.push(addedMove);
 
 
 
-function addPawnCaptureMove(fromSquare, toSquare, capturedPiece){
+function addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList){
 
   console.log('Capture pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name);
 
@@ -458,7 +458,7 @@ function addPawnCaptureMove(fromSquare, toSquare, capturedPiece){
 
 
 
-function addPawnQuietMove(fromSquare, toSquare){
+function addPawnQuietMove(fromSquare, toSquare ,  moveList){
 
   
   addedMove = createMove(fromSquare, toSquare, pieces.noPiece, pieces.noPiece);

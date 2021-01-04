@@ -88,7 +88,7 @@ function moveExists(move){
 
      //loop on all the generated move, and return true if the move is in it. Else return false
      
-     generateMoves();
+     let moveList = generateMoves();
 
      foundMove = false;
 
