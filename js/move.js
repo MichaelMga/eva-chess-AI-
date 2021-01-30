@@ -222,11 +222,9 @@ function moveExists(move){
 
     
 
-    if(captSqFromChain & 0x4F != 0){
+    if(captSqFromChain != 0){
 
 
-
-      alert('capture!');
 
 
 
@@ -368,7 +366,7 @@ function moveExists(move){
 
      //AFTER THE MOVE IS DONE BACK, ADD THE PIECE THAT WAS DELETED
 
-    if( prevMoveCap & 0x4F != 0 ){
+    if( prevMoveCap != 0 ){
 
 
       //ADD A PIECE OBJECT AND GIVE IT THE SQUARE TOSQ

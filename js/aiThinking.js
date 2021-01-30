@@ -1,7 +1,15 @@
+
+ var nodes = 0;
+
+
 function startAiThinking(){
 
 	stopSearch = false;
-	searchPosition();
+	let bestMove = searchPosition();
+
+
+	makeMove(bestMove);
+
 
  }
 
@@ -9,11 +17,8 @@ function startAiThinking(){
 
 function searchPosition(){
 
-
 	var bestMove = noMove;
-
 	let bestScore = -infinite;
-	let currentDepth = 0;
 	let pvNum = 0;
 	let line;
 
@@ -27,7 +32,7 @@ function searchPosition(){
 	console.log('before the search , the poskey was ' + boardPosKey);
 
 
-   for( currentDepth = 10; currentDepth < 11; currentDepth++ ) {		
+   for(var currentDepth = 1; currentDepth < 5 ; currentDepth++ ) {		
 
    	   
 	 bestScore = alphaBeta( currentDepth , -infinite, infinite);
@@ -55,7 +60,8 @@ function searchPosition(){
 
 		
 	
-		//bestMove = probePvTable();
+		bestMove = probePvTable();
+
 
 
 
@@ -81,7 +87,7 @@ function searchPosition(){
 
 		*/
 
-				//return bestMove;
+				return bestMove;
 			
 		
 	}	
@@ -92,19 +98,25 @@ function searchPosition(){
 
 
 function alphaBeta(depth, alpha, beta){
-	
-	let oldAlpha = alpha;
-	let legal = 0;
 
-	alert('depth'+depth)
+	nodes++;
+
+	
+	var oldAlpha = alpha;
+	var legal = 0;
+
+
 
 
 	if(depth <= 0){
 
-		alert('we reached a leaf node!')
 		//WHEN DEPTH IS AT 0, RETURN THE EVALUATION.
+
+		//alert('leaf node reached');
+
 		return evalBoard();
 	}
+
 
 	//IMPORTANT, CHECK IF THE FUNCTION NEEDS TO STOP AFTER CHECKING 2047 nodes
 
@@ -116,11 +128,13 @@ function alphaBeta(depth, alpha, beta){
 	
 	let moveList = generateMoves();
 
+	//alert(moveList.length);
+
 	let score;	   
 
 	  //LOOP ON EVERY MOVE OF THE MOVE LIST
 
-  	for(i = 0 ; i < moveList.length; i++){	
+  	for(var i = 0 ; i < moveList.length; i++){	
 
 		//SORT THE MOVE LIST USING SELECTION SORT
 		//pickNextMove(moveIndex);	
@@ -130,8 +144,6 @@ function alphaBeta(depth, alpha, beta){
         if (makeMove(moveList[i]) == false) {
 
 			//IF THIS MOVE CAN'T BE DONE, MOVE INVALID STOP AND CHECK THE NEXT MOVE IN THE LIST IF THERE IS ONE
-			alert('this move couldnt be done');
-
 		    continue;
 			
 		} else {
@@ -139,7 +151,7 @@ function alphaBeta(depth, alpha, beta){
 			//legal++;
 			//the beta of the opponent being the reverse of its alpha, the reverse of the opponent's beta is the players alpha, and the players beta is the reverse of the opponents alpha.
 			
-			score = -alphaBeta(depth-1, -beta, -alpha);		
+			score = -alphaBeta(depth-1, -beta, -alpha);	
 
 			takeMove(moveList[i]);
 
@@ -150,6 +162,7 @@ function alphaBeta(depth, alpha, beta){
 			*/
 
 		}
+
 
 				
 			
@@ -169,9 +182,11 @@ function alphaBeta(depth, alpha, beta){
 
 		}
 
-		
-	
+
+
 		//If we find a best move for this score.
+
+
 
 
 		if(score > alpha) {
@@ -214,7 +229,6 @@ function alphaBeta(depth, alpha, beta){
 			alpha = score;
 			bestMove = moveList[i];
 			
-
 
 		  }		
 		  
@@ -463,7 +477,7 @@ function alphaBeta(alpha, beta){
 
 		//clears the history
 
-		for(i=0; i < 14 * boardSquaresNum ; i++){
+		for(var i=0; i < 14 * boardSquaresNum ; i++){
 			boardSearchHistory[i] = 0;
 		}
 
@@ -471,9 +485,9 @@ function alphaBeta(alpha, beta){
 		//clears the searchKillers table
 
 		
-		for(i=0; i < 3 * MAXDEPTH; i++){
+		for(var n=0; n < 3 * MAXDEPTH; n++){
 
-			boardSearchKillers[i] = 0;
+			boardSearchKillers[n] = 0;
 
 	   }
 

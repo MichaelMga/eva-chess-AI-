@@ -10,8 +10,8 @@ function probePvTable(){
     
 	if( pvTable[index].posKey == boardPosKey ){
 
-    
-		return pvTable[index].move;
+        return pvTable[index].move;
+        
 	}
     
 
@@ -44,6 +44,9 @@ function storePvMove(move){
 
     pvTable[pvIndex].move = move;
     pvTable[pvIndex].posKey = boardPosKey;
+
+
+    return pvTable[pvIndex].posKey;
 
 
 
