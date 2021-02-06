@@ -1,14 +1,14 @@
 
- var nodes = 0;
+var nodes = 0;
 
 
 function startAiThinking(){
 
 	stopSearch = false;
 	let bestMove = searchPosition();
-
-
 	makeMove(bestMove);
+	moveGuiPieces(FROMSQ(bestMove), TOSQ(bestMove));
+
 
 
  }
@@ -24,13 +24,9 @@ function searchPosition(){
 
 
 	clearForSearch();
-
-
-
 	//EXECUTE THE ALPHABETA FUNCTION A CERTAIN NUMBER OF TIMES ACCORDING TO THE DESIRED DEPTH
 
 	console.log('before the search , the poskey was ' + boardPosKey);
-
 
    for(var currentDepth = 1; currentDepth < 5 ; currentDepth++ ) {		
 
@@ -42,7 +38,6 @@ function searchPosition(){
 		//bestScore = alphaBeta(-infinite, infinite, currentDepth);
 
 		//Check if the function has to be stopped.
-
 		
 		if(stopSearch == true){
 
@@ -54,43 +49,18 @@ function searchPosition(){
 		 
 		//Get a Pv line, that will be used in the alpha beta function
 
-
-		//AFTER MAKING AN ALPHABETA ITERATION, GET THE BEST MOVE FOR THE POSITION
-
-
+	   //AFTER MAKING AN ALPHABETA ITERATION, GET THE BEST MOVE FOR THE POSITION
 		
 	
 		bestMove = probePvTable();
 
-
-
-
-		//alert('the best move that was found is ' + bestMove);
-
-	
-
-		//console.log('the best move is ' + bestMove);
-
-
-		//line = ("Depth:" + currentDepth + " best:" + PrMove(bestMove) + " Score:" + bestScore + " nodes:" + searchNodes); 
-		
-		
-		/*
-		if(currentDepth!=1) {
-
-			line += (" Ordering:" + ((srch_fhf/srch_fh)*100).toFixed(2) + "%");
-
-		}
-
-
-		console.log(line);
-
-		*/
-
-				return bestMove;
-			
 		
 	}	
+
+
+	
+	return bestMove;
+			
 
 }
 
@@ -101,9 +71,13 @@ function alphaBeta(depth, alpha, beta){
 
 	nodes++;
 
+	var moves = 0;
+
 	
 	var oldAlpha = alpha;
 	var legal = 0;
+
+	var bestMove = -infinite;
 
 
 
@@ -125,6 +99,8 @@ function alphaBeta(depth, alpha, beta){
 		checkUp();
 	}
 	*/
+
+	console.log('************************' + nodes + '*****************************')
 	
 	let moveList = generateMoves();
 
@@ -134,10 +110,10 @@ function alphaBeta(depth, alpha, beta){
 
 	  //LOOP ON EVERY MOVE OF THE MOVE LIST
 
-  	for(var i = 0 ; i < moveList.length; i++){	
+  	for(var i = 0 ; i < moveList.length ; i++){	
 
 		//SORT THE MOVE LIST USING SELECTION SORT
-		//pickNextMove(moveIndex);	
+		//pickNextMove(i, moveList);	
 
 		//IF THE MOVE ISNT VALID, THEN, CONTINUE ON THE MOVELIST
 
@@ -147,7 +123,23 @@ function alphaBeta(depth, alpha, beta){
 		    continue;
 			
 		} else {
+
+			moves++;
+
+			if(i == (moveList.length - 1)){
+
+				console.log('*********************last move made ' + moves + 'ML length => ' + moveList.length + ' depth=> ' + depth);
+
+
+
+			} else {
+
+				
+			console.log('*********************move made ' + moves + 'ML length => ' + moveList.length  + ' depth=> ' + depth);
 			
+			}
+
+
 			//legal++;
 			//the beta of the opponent being the reverse of its alpha, the reverse of the opponent's beta is the players alpha, and the players beta is the reverse of the opponents alpha.
 			
@@ -162,18 +154,8 @@ function alphaBeta(depth, alpha, beta){
 			*/
 
 		}
-
-
-				
-			
-		if(score > alpha){
-
-			alpha = score;
-
-			bestMove = moveList[i];
-	
-		 }
-
+		
+		
 
 		
 		if(alpha != oldAlpha) {		
@@ -183,15 +165,10 @@ function alphaBeta(depth, alpha, beta){
 		}
 
 
-
-		//If we find a best move for this score.
-
-
-
-
 		if(score > alpha) {
    
 			if(score >= beta) {
+
 
 				//if the score is higher than beta (-alpha of the opponent), then there 's no point in going on. If the moves are ordered properly, if there is a "beta cutoff"(meaning "no need to go further there ")to do in a movelist, it should happen first.
 			
@@ -205,63 +182,24 @@ function alphaBeta(depth, alpha, beta){
 				searchFh++;	
 
 
-				//if the move is not a capture move , we'll refer it as a "search killer"
-				
-				/*
-				if( (CAPTURED(moveList[moveIndex]) & 0x4F) == 0) {
-
-					boardSearchKillers[MAXDEPTH + boardPly] = brd_searchKillers[boardPly];
-					boardSearchKillers[boardPly] = brd_moveList[MoveNum];
-
-				}		
-				
-				*/
 
 				return beta;
 			}
 
 
-
-
 			//IF THIS IS A BEST MOVE BUT THERE ARE NO PRUNNING
-
 
 			alpha = score;
 			bestMove = moveList[i];
 			
-
 		  }		
 		  
 
-		}
+  	 }
 
 
 
 	//IF THERE WERE NO LEGAL MOVES AT ALL IN THE LIST
-
-
-	/*
-	 
-	if(legal == 0) {
-
-         //CHECK IF THE AI IS IN A CHECKED POSITION (MEANING, IF THE KING IS ATTACKED BY AN OPPONENTS PIECE AT THE CURRENT POSITION)
-
-		if(InCheck) {
-
-			//RETURN A SCORE VERY NEGATIVE FOR THE CURRENT POSITION  = GAME OVER. NO LEGAL MOVE, WHILE IN A MATE POSITION
-			return -MATE + brd_ply;
-
-		} else {
-
-			//IF NO LEGAL MOVE POSSIBLE, BUT NO POSSIBLE MOVE, return 0.
-
-			return 0;
-		}
-	}
-
-
-	*/
-
 
 
 	//IMPORTANT PART : IF WE FIND A BEST MOVE, WE FILL THE PV ARRAY AT THE CURRENT POSKEY (which will be useful for the further iterations)
@@ -277,7 +215,7 @@ function alphaBeta(depth, alpha, beta){
 
 
 
-function pickNextMove(firstMoveInList){
+function pickNextMove(firstMoveInList, moveList){
 
 	//loop at a certain point of the moveScores to find the best movescore at a certain point of the array.
 	

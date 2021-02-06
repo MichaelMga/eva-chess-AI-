@@ -338,7 +338,8 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
 
 
 
-  console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' );
+  console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' + moveList.length );
+
 
  
   return moveList;
@@ -356,10 +357,10 @@ function addQuietMove(fromSquare, toSquare, moveList){
 
    addedMove = createMove(fromSquare, toSquare, pieces.noPiece, pieces.noPiece);
 
-   console.log('quiet move added from' + fromSquare + 'to : ' + toSquare + 'the moving piece is' + boardSquaresArray[fromSquare] + 'the active side is ' + sides[activeSideIndex].name );
+
+   console.log('quiet move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
 
 
-   
    
    moveList.push(addedMove);
 
@@ -371,7 +372,7 @@ function addQuietMove(fromSquare, toSquare, moveList){
 function addCaptureMove(fromSquare, toSquare, capturedPiece, moveList){
 
 
-console.log('capture move added from' + fromSquare + 'to : ' + toSquare + 'the moving piece is' + boardSquaresArray[fromSquare] + 'the active side is ' + sides[activeSideIndex].name + ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name )+ ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name ;
+console.log('capture move added from' + fromSquare + 'to : ' + toSquare + 'the moving piece is' + boardSquaresArray[fromSquare].piece + ' , the active side is ' + sides[activeSideIndex].name + ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name )+ ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name ;
 
 
 
@@ -465,12 +466,9 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList){
           
   moveList.push(addedMove); 
 
-
-  console.log('quiet pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name);
-
+  console.log('quiet pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
 
 
-     
  
  //IF POSSIBILITY OF PROMOTION
 

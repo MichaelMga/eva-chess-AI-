@@ -28,8 +28,8 @@ function clickedSquare(event){
                //IF THE MOVE IS VALID, A BIT CHAIN IS RETURNED USING THE VARIABLE 'NEW MOVE'
                 
                
-                makeMove(newMove);
-
+              makePlayerMove(newMove);
+              
                //CHANGE THE BOARD SIDE
                 
                
@@ -159,8 +159,6 @@ function moveExists(move){
    function makeMove(move){
 
 
-    console.log('move made');
-
 
 
 
@@ -198,12 +196,12 @@ function moveExists(move){
     //LOOP ON THE MOVELIST
 
          //ACCORDING TO THE PIECE, THE ELEMENT WILL BE LOCATED AT A CERTAIN SPOT IN THE MOVE LIST
+                 
           
-         
-
+ 
 
          for(pieceIndex = 0 ; pieceIndex < activePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex])].length; pieceIndex++){
-
+           
               loopedOnPiece = activePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex])][pieceIndex];
 
               //CHANGE THE FROM SQUARE
@@ -303,7 +301,6 @@ function moveExists(move){
      
 
 
-      moveGuiPieces(fromSqFromChain, toSqFromChain);
 
 
       activeSideIndex ^= 1;
@@ -387,9 +384,6 @@ function moveExists(move){
 
       hashPiece( prevMoveCap , fromSqFromChain);
 
-
-      addGuiPiece(prevMoveCap , prevMoveToSq);
-    
       
     }
 
@@ -529,8 +523,6 @@ function moveExists(move){
 
 
 
-
-
    function getPieceIndex(givenPiece, side){
 
 
@@ -540,12 +532,17 @@ function moveExists(move){
 
           alert('the piece is an offboard object, or an empty object')
 
-
         }
         
         return (givenPiece - 1);
 
       } else {
+
+        if(givenPiece == 13 || givenPiece == 0){
+
+          alert('the piece is an offboard object, or an empty object')
+
+        }
         
         //FOR THE BLACK PIECES, THE 7th ELEMENT IS ACTUALLY LOCATED AT THE 0th POSITION
 

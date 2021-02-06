@@ -600,3 +600,12 @@ function rand32(){
 		 | (Math.floor((Math.random()*255)+1) << 8) | Math.floor((Math.random()*255)+1);
 
 }
+
+
+
+function makePlayerMove(move){
+
+    makeMove(move);
+    moveGuiPieces(FROMSQ(move), TOSQ(move));
+
+}
