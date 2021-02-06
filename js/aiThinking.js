@@ -69,8 +69,6 @@ function alphaBeta(depth, alpha, beta){
 
 	nodes++;
 
-	var moves = 0;
-
 	
 	var oldAlpha = alpha;
 	var legal = 0;
@@ -99,8 +97,14 @@ function alphaBeta(depth, alpha, beta){
 	*/
 
 	console.log('************************' + nodes + '*****************************')
+
+	let moves = generateMoves();
 	
-	let moveList = generateMoves().list;
+	let moveList = moves.list;
+
+	let moveScores = moves.scores;
+
+
 
 	//alert(moveList.length);
 
@@ -110,8 +114,9 @@ function alphaBeta(depth, alpha, beta){
 
   	for(var i = 0 ; i < moveList.length ; i++){	
 
+		pickNextMove(i, moveList, moveScores);
+
 		//SORT THE MOVE LIST USING SELECTION SORT
-		//pickNextMove(i, moveList);	
 
 		//IF THE MOVE ISNT VALID, THEN, CONTINUE ON THE MOVELIST
 
@@ -121,22 +126,6 @@ function alphaBeta(depth, alpha, beta){
 		    continue;
 			
 		} else {
-
-			moves++;
-
-			if(i == (moveList.length - 1)){
-
-				console.log('*********************last move made ' + moves + 'ML length => ' + moveList.length + ' depth=> ' + depth);
-                
-
-
-			} else {
-
-
-				
-			console.log('*********************move made ' + moves + 'ML length => ' + moveList.length  + ' depth=> ' + depth);
-			
-			}
 
 
 			//legal++;
@@ -230,53 +219,53 @@ function alphaBeta(depth, alpha, beta){
 
 
 
-function pickNextMove(firstMoveInList, moveList){
+function pickNextMove(firstElementIndex, moveList, moveScores){
 
 	//loop at a certain point of the moveScores to find the best movescore at a certain point of the array.
 	
 	//init the best score at 0
-	var bestScore = 0; 
 
-	var bestNum = unsortedFirstElement;
+	var bestScore = moveScores[firstElementIndex]; 
+
+	var bestNum = firstElementIndex;
 	
 
 	//Loop on the movescores, and get the best score. Pick the index.
-	for (moveIndex = firstMoveInList ; moveIndex < moveList.length; moveIndex++) {
+	for (var i = firstElementIndex ; i < moveList.length; i++) {
 
-		if (boardMoveScores[moveIndex] > bestScore) {
+		if (moveScores[i] > bestScore) {
 
-			bestScore = moveListScores[moveIndex];
-			bestNum = moveIndex;
+			bestScore = moveScores[i];
+			bestNum = i;
 		}
+
 	}
 	
 
-
-
-	 let previouslyFirstElement;
-
+	 let currentFirst;
+	 let currentFirstScore;
 
 	//select the first element of the part of the array we check, and swap it with the best element
-
 	//select the first element and store it
 
-      previouslyFirstElement = moveList[firstMoveInList];
+      currentFirst = moveList[firstElementIndex];
 
 	//go at the first element of the array, and replace what is in there with the move with the highest score
 
-	  moveList[firstMoveInList] = moveList[bestNum];
+	  moveList[firstElementIndex] = moveList[bestNum];
 
 	//now, go where the best move was stored, and replace it with the previously first element of the array
 
-	  brd_moveList[bestNum] = previouslyFirstElement;
+	 moveList[bestNum] = currentFirst;
 	
-	
+
 	//Do the same operation with the move scores array
 
-	  previouslyFirstElement = moveListScores[firstMoveInList];
+	  currentFirstScore = moveListScores[firstElementIndex];
     
-	  moveListScores[firstMoveInList] = moveListScores[bestNum];
-   	  moveListScores[bestNum] = previouslyFirstElement;
+	  moveScores[firstElementIndex] = moveScores[bestNum];
+
+   	  moveScores[bestNum] = currentFirstScore;
 
 
 
