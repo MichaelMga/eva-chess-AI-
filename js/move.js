@@ -33,7 +33,7 @@ function clickedSquare(event){
                //CHANGE THE BOARD SIDE
                 
                
-               startAiThinking();
+                 startAiThinking();
 
 
                  //AFTER THE PLAYER CLICK ON THE SECOND SQUARE, THE AI STARTS THINKING;
@@ -88,7 +88,7 @@ function moveExists(move){
 
      //loop on all the generated move, and return true if the move is in it. Else return false
      
-     let moveList = generateMoves();
+     let moveList = generateMoves().list;
 
      foundMove = false;
 
@@ -157,6 +157,9 @@ function moveExists(move){
 
 
    function makeMove(move){
+
+
+    boardPly++;
 
 
 
@@ -323,6 +326,10 @@ function moveExists(move){
 
 
    function takeMove(move){
+
+    
+    boardPly--;
+    
 
     activeSideIndex ^= 1;
 

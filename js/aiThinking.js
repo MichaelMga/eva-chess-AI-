@@ -9,8 +9,6 @@ function startAiThinking(){
 	makeMove(bestMove);
 	moveGuiPieces(FROMSQ(bestMove), TOSQ(bestMove));
 
-
-
  }
 
 
@@ -28,7 +26,7 @@ function searchPosition(){
 
 	console.log('before the search , the poskey was ' + boardPosKey);
 
-   for(var currentDepth = 1; currentDepth < 5 ; currentDepth++ ) {		
+   for(var currentDepth = 1; currentDepth < 3 ; currentDepth++ ) {		
 
    	   
 	 bestScore = alphaBeta( currentDepth , -infinite, infinite);
@@ -77,7 +75,7 @@ function alphaBeta(depth, alpha, beta){
 	var oldAlpha = alpha;
 	var legal = 0;
 
-	var bestMove = -infinite;
+	var bestMove = noMove;
 
 
 
@@ -102,7 +100,7 @@ function alphaBeta(depth, alpha, beta){
 
 	console.log('************************' + nodes + '*****************************')
 	
-	let moveList = generateMoves();
+	let moveList = generateMoves().list;
 
 	//alert(moveList.length);
 
@@ -129,10 +127,11 @@ function alphaBeta(depth, alpha, beta){
 			if(i == (moveList.length - 1)){
 
 				console.log('*********************last move made ' + moves + 'ML length => ' + moveList.length + ' depth=> ' + depth);
-
+                
 
 
 			} else {
+
 
 				
 			console.log('*********************move made ' + moves + 'ML length => ' + moveList.length  + ' depth=> ' + depth);
@@ -154,15 +153,11 @@ function alphaBeta(depth, alpha, beta){
 			*/
 
 		}
-		
-		
+
 
 		
-		if(alpha != oldAlpha) {		
+
 	
-			storePvMove(bestMove);
-
-		}
 
 
 		if(score > alpha) {
@@ -183,6 +178,17 @@ function alphaBeta(depth, alpha, beta){
 
 
 
+				if(CAPTURED(moveList[i]) == 0 ){
+
+					//store the previous search killer in another memory space, and remove the search killer space , with the new move
+
+					boardSearchKillers[MAXDEPTH + boardPly] = boardSearchKillers[boardPly];
+					boardSearchKillers[boardPly] = moveList[i];
+
+				}
+
+
+
 				return beta;
 			}
 
@@ -192,7 +198,16 @@ function alphaBeta(depth, alpha, beta){
 			alpha = score;
 			bestMove = moveList[i];
 			
-		  }		
+		  }
+		  
+		  
+
+		  	
+		if(alpha != oldAlpha) {		
+	
+			storePvMove(bestMove);
+
+		}
 		  
 
   	 }
@@ -402,8 +417,6 @@ function alphaBeta(alpha, beta){
 
 
 	}
-
-
 	
 	*/
 
@@ -412,6 +425,8 @@ function alphaBeta(alpha, beta){
 
    function clearForSearch(){
 
+
+	    boardPly = 0;
 
 		//clears the history
 

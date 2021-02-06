@@ -47,7 +47,7 @@ var stopSearch;
 
 
 
-var boardPly;
+var boardPly = 0;
 
 
 var boardPosKey;
@@ -227,6 +227,12 @@ var boardSearchHistory = new Array(14 * boardSquaresNum);
 
 var boardHistory = [];
 
+
+//MVVLVA
+
+var mvvLvaScores = new Array(14 * 14);
+
+var victimScore = [ 0, 100, 200, 300, 400, 500, 600, 100, 200, 300, 400, 500, 600 ];
 
 
 

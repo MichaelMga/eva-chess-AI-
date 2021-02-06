@@ -18,6 +18,8 @@ function init(){
 
     generateHashKeys();
 
+    initMvvLva();
+
     
 
 }

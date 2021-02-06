@@ -583,12 +583,11 @@ function createGameBoardHistory(){
 
 function createPvTable(){
 
-
     for(i=0; i < pvEntries; i++){
 
         pvTable.push({move: noMove, posKey : 0});
-    }
 
+    }
 
 }
 
@@ -608,4 +607,15 @@ function makePlayerMove(move){
     makeMove(move);
     moveGuiPieces(FROMSQ(move), TOSQ(move));
 
+}
+
+
+function initMvvLva() {
+	var attacker;
+	var victim;
+	for(attacker = pieces.wP; attacker <= pieces.bK; ++attacker) {
+		for(victim = pieces.wP; victim <= pieces.bK; ++victim) {
+			mvvLvaScores[victim * 14 + attacker] = victimScore[victim] + 6 - ( victimScore[attacker] / 100);
+		}
+	}		
 }
