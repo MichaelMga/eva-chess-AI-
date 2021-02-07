@@ -20,6 +20,10 @@ function init(){
 
     initMvvLva();
 
+    setTimeout(function(){
+        alert("W=>" + gameBoardMaterials.white + " , B=>" +  gameBoardMaterials.black);
+    },10000)
+
     
 
 }

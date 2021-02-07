@@ -262,6 +262,21 @@ function moveExists(move){
 
 
 
+        if(sides[activeSideIndex] == white){
+
+          gameBoardMaterials.black -= pieceVal[capturedPiece];   
+
+
+        } else {
+
+          gameBoardMaterials.white -= pieceVal[capturedPiece];
+
+
+        }
+
+
+
+
      }
 
 
@@ -371,6 +386,20 @@ function moveExists(move){
      //AFTER THE MOVE IS DONE BACK, ADD THE PIECE THAT WAS DELETED
 
     if( prevMoveCap != 0 ){
+
+
+
+      if(sides[activeSideIndex] == white){
+
+        gameBoardMaterials.black += pieceVal[prevMoveCap];   
+
+
+      } else {
+
+        gameBoardMaterials.white += pieceVal[prevMoveCap];
+
+      }
+
 
 
       //ADD A PIECE OBJECT AND GIVE IT THE SQUARE TOSQ

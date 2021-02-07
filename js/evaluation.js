@@ -8,6 +8,9 @@
 
         let score = gameBoardMaterials.white - gameBoardMaterials.black;
 
+    
+
+
         let piece ;
 
         let square ;
@@ -160,6 +163,15 @@
 
             }
 
+
+
+
+
+
+            
+
+
+
         }
 
         
@@ -167,7 +179,17 @@
         //console.log(' we evaluated the board. Here is the score : ' + score);
 
 
-        return score;
+        if(sides[activeSideIndex] == white){
+
+            return score;
+
+        } else {
+
+            return - score;
+
+        }
+
+
 
 
     }

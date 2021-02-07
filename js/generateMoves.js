@@ -9,10 +9,11 @@ function generateMoves(){
   console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
 
 
-  console.log('before generating moves, the moveList has a length of ' + moveList.length);
-
-
   player = sides[activeSideIndex];
+
+
+
+  //alert(player.name);
 
 
   //LOOP ON EVERY PIECE
@@ -20,8 +21,9 @@ function generateMoves(){
   //FOR EVERY PIECE
 
 
-  for(pieceGroupIndex=0; pieceGroupIndex < player.pieceList.length ;pieceGroupIndex++){
+  for(pieceGroupIndex = 0; pieceGroupIndex < player.pieceList.length ; pieceGroupIndex++){
 
+    
     
       pieceGroup = player.pieceList[pieceGroupIndex];
 
@@ -211,6 +213,7 @@ if(player == white){
 
 
 
+
     //LOOP ON EACH NON SLIDING PIECE
 
 for(nonSlidingPieceIndex = 0 ; nonSlidingPieceIndex < activePlayerNonSlidingPieces.length; nonSlidingPieceIndex++){
@@ -227,31 +230,37 @@ for(nonSlidingPieceIndex = 0 ; nonSlidingPieceIndex < activePlayerNonSlidingPiec
 
         //FOR EACH DIRECTION
 
-       for(directionIndex = 0; directionIndex < directions.length ;directionIndex++){ 
+       for(directionIndex = 0; directionIndex < directions.length ; directionIndex++){ 
 
              
           checkedDirection = directions[directionIndex];
 
           toSquare = fromSquare + checkedDirection;
 
-          if( boardSquaresArray[toSquare].piece == pieces.noPiece){
-
+     
             
-             addQuietMove(fromSquare, toSquare ,  moveList ,  moveScores);
-         
-            } else if(boardSquaresArray[toSquare].piece != pieces.offBoard) {
+            if(boardSquaresArray[toSquare].piece != pieces.offBoard && colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex]) {
 
 
-              if(colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex] ){
-
+              if( boardSquaresArray[toSquare].piece == pieces.noPiece){
+     
+                addQuietMove(fromSquare, toSquare ,  moveList ,  moveScores);
+            
+               } else {
+            
                    
-                 capturedPiece = boardSquaresArray[toSquare].piece;
+                  capturedPiece = boardSquaresArray[toSquare].piece;
 
-                 addCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList, moveScores);
+                  addCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList, moveScores);
+ 
 
 
-              }
+               }
+               
 
+  
+
+              
 
          }
 
@@ -286,7 +295,7 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
 
           toSquare = fromSquare + checkedDirection;
 
-           while(boardSquaresArray[toSquare].piece != pieces.offBoard){
+           while(boardSquaresArray[toSquare].piece != pieces.offBoard && colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex]){
           
                if(boardSquaresArray[toSquare].piece == pieces.noPiece){
 
@@ -296,14 +305,10 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
 
                  } else {
 
-                    if(colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex]){
-
                       capturedPiece = boardSquaresArray[toSquare].piece;
   
                       addCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList , moveScores);
 
-
-                     } 
 
 
                      //IF THE SQUARE IS NOT EMPTY, STOP ITERATING ON THIS DIRECTION
@@ -361,7 +366,7 @@ function addQuietMove(fromSquare, toSquare, moveList , moveScores){
 	}
 
 
-   console.log('quiet move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
+   //console.log('quiet move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
 
    moveList.push(addedMove);
 }
@@ -481,7 +486,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
 
           
 
-  console.log('quiet pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
+  //console.log('quiet pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
 
 
  
@@ -537,23 +542,31 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
 
 
 
-
-
-
-
-
     //COPY OF THE GENERATE MOVES FUNCTION, BUT WITH ONLY CAPTURE MOVES
 
 
-    function quiescence(){
 
 
+
+
+
+
+    function generateCaptures(){
+
+      //clear the moveList before any move generation
+    
+      let moveList = [];
+      let moveScores = [];
+    
+    
       console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
     
     
-    
-    
       player = sides[activeSideIndex];
+    
+    
+    
+      //alert(player.name);
     
     
       //LOOP ON EVERY PIECE
@@ -561,8 +574,9 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
       //FOR EVERY PIECE
     
     
-      for(pieceGroupIndex=0; pieceGroupIndex < player.pieceList.length ; pieceGroupIndex++){
+      for(pieceGroupIndex = 0; pieceGroupIndex < player.pieceList.length ; pieceGroupIndex++){
     
+        
         
           pieceGroup = player.pieceList[pieceGroupIndex];
     
@@ -585,12 +599,6 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
               
             if(checkedPiece.piece == pieces.wP){
     
-              console.log('we are checking a white pawn....');
-    
-    
-    
-           
-    
                 if( boardSquaresArray[checkedPiece.square + 11].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square + 11].piece != pieces.offBoard  ){
                      
                   if(colorsArray[boardSquaresArray[checkedPiece.square + 11].piece] == black){
@@ -603,7 +611,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
                       capturedPiece = boardSquaresArray[toSquare].piece;
     
     
-                          addPawnCaptureMove(fromSquare, toSquare, capturedPiece , moveList, moveScores);
+                          addPawnCaptureMove(fromSquare, toSquare, capturedPiece , moveList , moveScores);
     
                   }
                   
@@ -620,7 +628,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
     
                       capturedPiece = boardSquaresArray[toSquare].piece;
     
-                      addPawnCaptureMove(fromSquare, toSquare, capturedPiece , moveList , moveScores );
+                      addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList , moveScores);
     
                   }
     
@@ -638,8 +646,6 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
               
               if(checkedPiece.piece == pieces.bP){
     
-                console.log('we are checking a black pawn....');
-    
     
     
     
@@ -654,7 +660,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
                   capturedPiece = boardSquaresArray[checkedPiece.square - 11].piece;
     
     
-                  addPawnCaptureMove(fromSquare, toSquare, capturedPiece , moveList , moveScores);
+                  addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList , moveScores);
     
     
               }
@@ -671,7 +677,8 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
                toSquare = checkedPiece.square - 9;
                capturedPiece = boardSquaresArray[checkedPiece.square - 9].piece;
     
-                  addPawnCaptureMove(fromSquare, toSquare, capturedPiece , moveList , moveScores);
+    
+                  addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList , moveScores);
     
               }
     
@@ -705,6 +712,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
     
     
     
+    
         //LOOP ON EACH NON SLIDING PIECE
     
     for(nonSlidingPieceIndex = 0 ; nonSlidingPieceIndex < activePlayerNonSlidingPieces.length; nonSlidingPieceIndex++){
@@ -721,30 +729,23 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
     
             //FOR EACH DIRECTION
     
-           for(directionIndex = 0; directionIndex < directions.length ;directionIndex++){ 
+           for(directionIndex = 0; directionIndex < directions.length ; directionIndex++){ 
     
                  
               checkedDirection = directions[directionIndex];
     
               toSquare = fromSquare + checkedDirection;
     
-              if( boardSquaresArray[toSquare].piece == pieces.noPiece){
-    
+         
                 
-                      //don't do anything
-
-                } else if(boardSquaresArray[toSquare].piece != pieces.offBoard ) {
+                if(boardSquaresArray[toSquare].piece != pieces.offBoard && colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex] && boardSquaresArray[toSquare].piece != pieces.noPiece ) {
     
-    
-                  if(colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex] ){
     
                        
-                     capturedPiece = boardSquaresArray[toSquare].piece;
+                      capturedPiece = boardSquaresArray[toSquare].piece;
     
-                     addCaptureMove(fromSquare, toSquare, capturedPiece, moveList, moveScores);
-    
-    
-                  }
+                      addCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList, moveScores);
+     
     
     
              }
@@ -780,33 +781,26 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
     
               toSquare = fromSquare + checkedDirection;
     
-               while(boardSquaresArray[toSquare].piece != pieces.offBoard){
+               while(boardSquaresArray[toSquare].piece != pieces.offBoard && colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex]){
               
-                   if(boardSquaresArray[toSquare].piece == pieces.noPiece){
-    
-                       //don't do anything
-    
-                      //ELSE IT MEANS THERE IS A PIECE, SO POSSIBLE CAPTURE MOVE (IF OPPONENT'S PIECE)
-    
-                     } else {
-    
-                        if(colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex]){
     
                           capturedPiece = boardSquaresArray[toSquare].piece;
       
-                          addCaptureMove(fromSquare, toSquare, capturedPiece);
+                          addCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList , moveScores);
+
+
+
+
+                          break;
     
-    
-                         } 
     
     
                          //IF THE SQUARE IS NOT EMPTY, STOP ITERATING ON THIS DIRECTION
     
     
-                         break;
     
     
-                    }
+                    
     
                     toSquare += checkedDirection;
     
@@ -816,9 +810,9 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
     
             }
     
-         }
+          }
     
-       }
+        }
     
        
           console.log('la taille de la move list : ' + moveList.length);
@@ -827,13 +821,31 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
     
       }
     
-      console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' );
     
     
+    
+      console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' + moveList.length );
+    
+    
+     
+      return {list: moveList , scores: moveScores};
     
       
     }
+
+
+
+
+
+
+
+
     
+
+
+
+
+
 
 
 
