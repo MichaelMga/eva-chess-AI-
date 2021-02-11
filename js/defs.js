@@ -619,3 +619,289 @@ function initMvvLva() {
 		}
 	}		
 }
+
+
+
+
+
+function squareAttacked(observedPiece, sideIndex){
+
+
+
+    //clear the moveList before any move generation
+  
+  
+    var player;
+
+
+    
+    player = sides[sideIndex ^ 1];
+  
+  
+  
+    //alert(player.name);
+  
+  
+    //LOOP ON EVERY PIECE
+  
+    //FOR EVERY PIECE
+  
+  
+    for(pieceGroupIndex = 0; pieceGroupIndex < player.pieceList.length ; pieceGroupIndex++){
+  
+      
+      
+        pieceGroup = player.pieceList[pieceGroupIndex];
+  
+  
+  
+       for(pieceIndex=0; pieceIndex < pieceGroup.length ; pieceIndex++){ 
+  
+  
+  
+  
+          checkedPiece = pieceGroup[pieceIndex];
+  
+          fromSquare = checkedPiece.square;
+  
+          
+  
+        if(player == white){
+            
+          if(checkedPiece.piece == pieces.wP){
+  
+              if( boardSquaresArray[checkedPiece.square + 11].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square + 11].piece != pieces.offBoard  ){
+                   
+                if(boardSquaresArray[checkedPiece.square + 11].piece == observedPiece){
+
+                  
+                  alert('attacked')
+
+                  return true;
+
+
+                  //return true;
+  
+  
+  
+                }
+                
+              }
+  
+  
+              if( boardSquaresArray[checkedPiece.square + 9].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square + 9].piece != pieces.offBoard  ){
+                   
+                if(boardSquaresArray[checkedPiece.square + 9].piece == observedPiece){
+  
+  
+
+                  alert('attacked')
+
+                  return true;
+
+
+  
+                    //return true;
+  
+                }
+  
+              }
+  
+  
+            continue;
+  
+  
+          }
+  
+  
+        } else if (player == black) {    
+            
+            
+            if(checkedPiece.piece == pieces.bP){
+  
+  
+  
+  
+             
+           if( boardSquaresArray[checkedPiece.square - 11].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square - 11].piece != pieces.offBoard  ){
+                   
+            
+            if(boardSquaresArray[checkedPiece.square - 11].piece == observedPiece){
+  
+
+
+              alert('attacked')
+
+              return true;
+
+  
+                //return true;
+  
+  
+            }
+            
+          }
+  
+          
+      
+          if( boardSquaresArray[checkedPiece.square - 9].piece != pieces.noPiece || boardSquaresArray[checkedPiece.square - 9].piece != pieces.offBoard  ){
+            
+  
+            if(boardSquaresArray[checkedPiece.square - 9].piece == observedPiece ){
+                
+
+                 alert('attacked')
+
+                 return true;
+
+
+
+  
+                //return true;
+  
+            }
+  
+          }
+  
+        }
+    
+       }
+  
+  
+        //OTHER PIECES
+  
+  
+        
+  if(player == white){
+    
+  
+    activePlayerNonSlidingPieces = nonSlidingPieces.white;
+  
+    activePlayerSlidingPieces = slidingPieces.white;
+  
+  
+  } else {
+  
+    activePlayerNonSlidingPieces = nonSlidingPieces.black;
+  
+    activePlayerSlidingPieces = slidingPieces.black;
+  
+  
+  }
+  
+  
+  
+  
+      //LOOP ON EACH NON SLIDING PIECE
+  
+  for(nonSlidingPieceIndex = 0 ; nonSlidingPieceIndex < activePlayerNonSlidingPieces.length; nonSlidingPieceIndex++){
+      
+    nonSlidingPiece = activePlayerNonSlidingPieces[nonSlidingPieceIndex];
+  
+       if(checkedPiece.piece == nonSlidingPiece.piece){
+  
+  
+  
+         directions = nonSlidingPiece.directions;
+  
+          //LOOP ON ALL THE DIRECTIONS
+  
+          //FOR EACH DIRECTION
+  
+         for(directionIndex = 0; directionIndex < directions.length ; directionIndex++){ 
+  
+               
+            checkedDirection = directions[directionIndex];
+  
+            toSquare = fromSquare + checkedDirection;
+  
+       
+              
+              if(boardSquaresArray[toSquare].piece == observedPiece ) {
+
+
+  
+                     
+  
+                   //return true;
+   
+  
+  
+           }
+  
+        }
+  
+        //IF WE FOUND THE PIECE, NO NEED TO GO FURTHER
+  
+       continue; 
+  
+     }
+  
+  }
+  
+  
+  
+  for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length; slidingPieceIndex++){
+      
+    slidingPiece = activePlayerSlidingPieces[slidingPieceIndex];
+  
+  
+       if(checkedPiece.piece == slidingPiece.piece){
+  
+        //RECURSION
+        //FOR EACH DIRECTION, IF THE PIECE IS EMPTY, YOU ADD A QUIET MOVE, AND ADD THE DIRECTION NUM
+           
+         directions = slidingPiece.directions;
+  
+  
+         for(directionIndex = 0; directionIndex < directions.length; directionIndex++){
+  
+            checkedDirection = directions[directionIndex];
+  
+            toSquare = fromSquare + checkedDirection;
+  
+             while(boardSquaresArray[toSquare].piece != pieces.offBoard && colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex]){
+
+                
+
+                   if(boardSquaresArray[toSquare].piece == observedPiece){
+
+   
+
+
+                   }
+  
+
+
+  
+  
+                       //IF THE SQUARE IS NOT EMPTY, STOP ITERATING ON THIS DIRECTION
+  
+  
+  
+  
+                  
+  
+                  toSquare += checkedDirection;
+  
+               }
+  
+            }
+  
+          }
+  
+        }
+  
+      }
+  
+     
+    }
+  
+  
+  
+  alert('piece not attacked')
+   
+    return false;
+  
+    
+}

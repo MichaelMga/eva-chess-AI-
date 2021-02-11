@@ -1,13 +1,10 @@
 
 var nodes = 0;
-
 var betacutoff = 0;
 
 
 
 function startAiThinking(){
-
-	betacutoff = 0;
 
 	stopSearch = false;
 	let bestMove = searchPosition();
@@ -16,11 +13,6 @@ function startAiThinking(){
     moveGuiPieces(FROMSQ(bestMove), TOSQ(bestMove));
 
 	
-	
-
-
-	
-
  }
 
 
@@ -39,8 +31,7 @@ function searchPosition(){
 
 	console.log('before the search , the poskey was ' + boardPosKey);
 
-   for(var currentDepth = 1; currentDepth < 3 ; currentDepth++ ) {		
-
+   for(var currentDepth = 1; currentDepth < 4 ; currentDepth++ ) {		
    	   
 	 bestScore = alphaBeta( currentDepth , -infinite, infinite);
 
@@ -106,11 +97,7 @@ function alphaBeta(depth, alpha, beta){
 
 	//IMPORTANT, CHECK IF THE FUNCTION NEEDS TO STOP AFTER CHECKING 2047 nodes
 
-	/*
-	if(searchedNodes & 2048 != 0){
-		checkUp();
-	}
-	*/
+
 
 	let moves = generateMoves();
 	
@@ -166,19 +153,12 @@ function alphaBeta(depth, alpha, beta){
 			
 		} else {
 
-
 			legal++;
 			//the beta of the opponent being the reverse of its alpha, the reverse of the opponent's beta is the players alpha, and the players beta is the reverse of the opponents alpha.
 			
 			score = -alphaBeta(depth-1, -beta, -alpha);	
 
 			takeMove(moveList[i]);
-
-			/*
-			if(stopSearch == true){ 
-				return 0;	
-			}	
-			*/
 
 		}
 
@@ -191,6 +171,7 @@ function alphaBeta(depth, alpha, beta){
 		if(score > alpha) {
    
 			if(score >= beta) {
+
 
 				//alert("there was a cutoff!! new score =>" + score)
 
@@ -205,6 +186,8 @@ function alphaBeta(depth, alpha, beta){
 					searchFhf++;
 				}
 
+
+
 				//if not first legal move (meaning, the program could potentially do better there)
 
 			    
@@ -215,24 +198,30 @@ function alphaBeta(depth, alpha, beta){
 
 					boardSearchKillers[MAXDEPTH + boardPly] = boardSearchKillers[boardPly];
 					boardSearchKillers[boardPly] = moveList[i];
+					boardSearchHistory[ boardSquaresArray[FROMSQ(moveList[i])].piece * boardSquaresNum + TOSQ(moveList[i])] += depth;
 
 				}
 
 
-				//alert(searchFhf/searchFh);
-
-
+		
 
 				return beta;
 			}
+
+
+		
 
 
 			//IF THIS IS A BEST MOVE BUT THERE ARE NO PRUNNING
 
 			alpha = score;
 			bestMove = moveList[i];
+
 			
 		  }
+
+
+		
 		  
 		  
 

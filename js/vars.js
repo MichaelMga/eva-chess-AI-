@@ -22,8 +22,6 @@ var activeSideIndex = 0;
 
 var sides = [white, black];
 
-var player;
-
 var testedMove;
 
 var ranksArray = [];
@@ -219,6 +217,8 @@ var score;
 
 var infinite = 30000;
 
+var mate = 29000;
+
 var maxGameMoves = 2048;
 
 var pvTable = [];
@@ -300,7 +300,7 @@ var castleKeys = new Array(16);
 
 
 
-     gameBoardMaterials = {white: 0, black: 0};
+ var gameBoardMaterials = {white: 0, black: 0};
 
 
 

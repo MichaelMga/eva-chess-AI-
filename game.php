@@ -11,7 +11,8 @@ require 'header.php';
 
 <div id='thinkingImgDiv'>Eva réfléchit...</div>
 
-<button onclick="takeMove(newMove)">take move</button>
+
+<button onclick="squareAttacked(pieces.bP , activeSideIndex)">is a black pawn attacked</button>
 
 
 <div id='promotionChoiceInterface'>

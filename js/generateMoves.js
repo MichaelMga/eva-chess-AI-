@@ -9,7 +9,7 @@ function generateMoves(){
   console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
 
 
-  player = sides[activeSideIndex];
+  var player = sides[activeSideIndex];
 
 
 
@@ -562,7 +562,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
       console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
     
     
-      player = sides[activeSideIndex];
+      var player = sides[activeSideIndex];
     
     
     
@@ -783,16 +783,19 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
     
                while(boardSquaresArray[toSquare].piece != pieces.offBoard && colorsArray[boardSquaresArray[toSquare].piece] != sides[activeSideIndex]){
               
-    
-                          capturedPiece = boardSquaresArray[toSquare].piece;
+
+                    if(boardSquaresArray[toSquare].piece != pieces.noPiece){
+
+                       
+                         capturedPiece = boardSquaresArray[toSquare].piece;
       
                           addCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList , moveScores);
 
 
+                           break;
 
 
-                          break;
-    
+                    }                     
     
     
                          //IF THE SQUARE IS NOT EMPTY, STOP ITERATING ON THIS DIRECTION
