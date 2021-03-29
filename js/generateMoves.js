@@ -6,7 +6,7 @@ function generateMoves(){
   let moveScores = [];
 
 
-  console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
+  //console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
 
 
   var player = sides[activeSideIndex];
@@ -27,13 +27,13 @@ function generateMoves(){
     
       pieceGroup = player.pieceList[pieceGroupIndex];
 
-      console.log('piece group : ' + pieceGroupIndex + ' length :' + pieceGroup.length);
+      //console.log('piece group : ' + pieceGroupIndex + ' length :' + pieceGroup.length);
 
 
      for(pieceIndex=0; pieceIndex < pieceGroup.length ; pieceIndex++){ 
 
 
-      console.log('piece index ' + pieceIndex + ' piece : ' + pieceGroup[pieceIndex].piece);
+      //console.log('piece index ' + pieceIndex + ' piece : ' + pieceGroup[pieceIndex].piece);
 
 
         checkedPiece = pieceGroup[pieceIndex];
@@ -46,7 +46,7 @@ function generateMoves(){
           
         if(checkedPiece.piece == pieces.wP){
 
-          console.log('we are checking a white pawn....');
+          //console.log('we are checking a white pawn....');
 
             if( boardSquaresArray[checkedPiece.square + 10].piece == pieces.noPiece ){
 
@@ -80,7 +80,7 @@ function generateMoves(){
 
                   toSquare = checkedPiece.square + 11;
 
-                  console.log('there is nothing in front of this piece!!');
+                  //console.log('there is nothing in front of this piece!!');
 
                   capturedPiece = boardSquaresArray[toSquare].piece;
 
@@ -96,7 +96,7 @@ function generateMoves(){
                  
               if(colorsArray[boardSquaresArray[checkedPiece.square + 9].piece] == black){
 
-                  console.log('white pawn capture move found');
+                  //console.log('white pawn capture move found');
 
                   toSquare = checkedPiece.square + 9;
 
@@ -120,7 +120,7 @@ function generateMoves(){
           
           if(checkedPiece.piece == pieces.bP){
 
-            console.log('we are checking a black pawn....');
+            //console.log('we are checking a black pawn....');
 
 
 
@@ -332,7 +332,7 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
     }
 
    
-      console.log('la taille de la move list : ' + moveList.length);
+      //console.log('la taille de la move list : ' + moveList.length);
 
 
 
@@ -341,7 +341,7 @@ for(slidingPieceIndex = 0 ; slidingPieceIndex < activePlayerSlidingPieces.length
 
 
 
-  console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' + moveList.length );
+  //console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' + moveList.length );
 
 
  
@@ -366,7 +366,7 @@ function addQuietMove(fromSquare, toSquare, moveList , moveScores){
 	}
 
 
-   //console.log('quiet move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
+   ////console.log('quiet move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
 
    moveList.push(addedMove);
 }
@@ -376,7 +376,7 @@ function addQuietMove(fromSquare, toSquare, moveList , moveScores){
 function addCaptureMove(fromSquare, toSquare, capturedPiece, moveList, moveScores){
 
 
-console.log('capture move added from' + fromSquare + 'to : ' + toSquare + 'the moving piece is' + boardSquaresArray[fromSquare].piece + ' , the active side is ' + sides[activeSideIndex].name + ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name )+ ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name ;
+//console.log('capture move added from' + fromSquare + 'to : ' + toSquare + 'the moving piece is' + boardSquaresArray[fromSquare].piece + ' , the active side is ' + sides[activeSideIndex].name + ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name )+ ' , the captured piece side is ' + colorsArray[boardSquaresArray[toSquare].piece].name ;
 
 
 addedMove = createMove(fromSquare, toSquare, capturedPiece, pieces.noPiece);
@@ -397,7 +397,7 @@ moveScores.push(mvvLvaScores[CAPTURED(addedMove) * 14 + boardSquaresArray[FROMSQ
 
 function addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList , moveScores){
 
-  console.log('Capture pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name);
+  //console.log('Capture pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name);
 
 
     
@@ -440,7 +440,7 @@ function addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList , mo
   
       }
   
-      console.log('promotion pieces available : ');
+      //console.log('promotion pieces available : ');
 
 
 
@@ -449,7 +449,7 @@ function addPawnCaptureMove(fromSquare, toSquare, capturedPiece ,  moveList , mo
 
            promotionPiece =  promotionArray[promotionIndex];
 
-           console.log(promotionPiece);
+           //console.log(promotionPiece);
   
            addedMove = createMove(fromSquare, toSquare, capturedPiece,  promotionPiece );
            
@@ -486,7 +486,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
 
           
 
-  //console.log('quiet pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
+  ////console.log('quiet pawn move added from ' + fromSquare + 'to ' + toSquare + 'with the chain ' + addedMove + 'for the side ' + sides[activeSideIndex].name + ' with the piece ' + boardSquaresArray[fromSquare].piece );
 
 
  
@@ -516,14 +516,14 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
  
      }
 
-     console.log('promotion pieces available : ');
+     //console.log('promotion pieces available : ');
  
  
         for(promotionIndex = 0; promotionIndex < promotionArray.length ; promotionIndex++) {
 
             promotionPiece =  promotionArray[promotionIndex];
 
-            console.log(promotionPiece);
+            //console.log(promotionPiece);
 
 
             addedMove = createMove(fromSquare, toSquare, pieces.noPiece,  promotionPiece );
@@ -559,7 +559,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
       let moveScores = [];
     
     
-      console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
+      //console.log('---------------------------------------------generating moves------------------------------------------------------------------------------------------' );
     
     
       var player = sides[activeSideIndex];
@@ -580,13 +580,13 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
         
           pieceGroup = player.pieceList[pieceGroupIndex];
     
-          console.log('piece group : ' + pieceGroupIndex + ' length :' + pieceGroup.length);
+          //console.log('piece group : ' + pieceGroupIndex + ' length :' + pieceGroup.length);
     
     
          for(pieceIndex=0; pieceIndex < pieceGroup.length ; pieceIndex++){ 
     
     
-          console.log('piece index ' + pieceIndex + ' piece : ' + pieceGroup[pieceIndex].piece);
+          //console.log('piece index ' + pieceIndex + ' piece : ' + pieceGroup[pieceIndex].piece);
     
     
             checkedPiece = pieceGroup[pieceIndex];
@@ -606,7 +606,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
     
                       toSquare = checkedPiece.square + 11;
     
-                      console.log('there is nothing in front of this piece!!');
+                      //console.log('there is nothing in front of this piece!!');
     
                       capturedPiece = boardSquaresArray[toSquare].piece;
     
@@ -622,7 +622,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
                      
                   if(colorsArray[boardSquaresArray[checkedPiece.square + 9].piece] == black){
     
-                      console.log('white pawn capture move found');
+                      //console.log('white pawn capture move found');
     
                       toSquare = checkedPiece.square + 9;
     
@@ -818,7 +818,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
         }
     
        
-          console.log('la taille de la move list : ' + moveList.length);
+          //console.log('la taille de la move list : ' + moveList.length);
     
     
     
@@ -827,7 +827,7 @@ function addPawnQuietMove(fromSquare, toSquare ,  moveList , moveScores){
     
     
     
-      console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' + moveList.length );
+      //console.log('---------------------------------------------end of moves generation------------------------------------------------------------------------------------------' + moveList.length );
     
     
      

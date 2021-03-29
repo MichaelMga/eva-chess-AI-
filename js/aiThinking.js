@@ -29,13 +29,13 @@ function searchPosition(){
 
 	//EXECUTE THE ALPHABETA FUNCTION A CERTAIN NUMBER OF TIMES ACCORDING TO THE DESIRED DEPTH
 
-	console.log('before the search , the poskey was ' + boardPosKey);
+	//console.log('before the search , the poskey was ' + boardPosKey);
 
-   for(var currentDepth = 1; currentDepth < 4 ; currentDepth++ ) {		
+   for(var currentDepth = 1; currentDepth < 6 ; currentDepth++ ) {		
    	   
 	 bestScore = alphaBeta( currentDepth , -infinite, infinite);
 
-	 console.log('after the search , the poskey is ' + boardPosKey);
+	 //console.log('after the search , the poskey is ' + boardPosKey);
 		
 		//bestScore = alphaBeta(-infinite, infinite, currentDepth);
 
@@ -43,7 +43,7 @@ function searchPosition(){
 		
 		if(stopSearch == true){
 
-			console.log('times up!!');
+			//console.log('times up!!');
 			
 			break;
 		 } 
@@ -360,7 +360,7 @@ function pickNextMove(firstElementIndex, moveList, moveScores){
 	function checkUp(){
 
 
-		console.log("is the time over?");
+		//console.log("is the time over?");
 
 
 	}
@@ -370,8 +370,6 @@ function pickNextMove(firstElementIndex, moveList, moveScores){
 
 
 	function quiescence(alpha, beta){
-
-		nodes++;
 		
 		var oldAlpha = alpha;
 		var legal = 0;

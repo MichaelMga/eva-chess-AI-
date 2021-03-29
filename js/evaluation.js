@@ -89,7 +89,7 @@
                     pieceScore = evalBoard[get120To64Square(evaluatedPieceSq)];
 
 
-                    //console.log('piece score :' + pieceScore + ' for the piece ' + pieceGroup[pieceIndex].piece);
+                    ////console.log('piece score :' + pieceScore + ' for the piece ' + pieceGroup[pieceIndex].piece);
 
 
                       
@@ -98,7 +98,7 @@
 
                     pieceScore = evalBoard[mirror64(get120To64Square(evaluatedPieceSq)) ];
 
-                    //console.log('piece score :' + pieceScore + ' for the piece ' + pieceGroup[pieceIndex].piece);
+                    ////console.log('piece score :' + pieceScore + ' for the piece ' + pieceGroup[pieceIndex].piece);
 
                     
                   }
@@ -116,7 +116,7 @@
                   boardEvalScore += pieceScore;
 
 
-                  //console.log('the board eval score is ' + boardEvalScore);
+                  ////console.log('the board eval score is ' + boardEvalScore);
 
 
 
@@ -168,7 +168,7 @@
 
         
 
-        //console.log(' we evaluated the board. Here is the score : ' + score);
+        ////console.log(' we evaluated the board. Here is the score : ' + score);
 
 
         if(sides[activeSideIndex] == white){

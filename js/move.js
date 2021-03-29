@@ -39,7 +39,7 @@ function clickedSquare(event){
                  //AFTER THE PLAYER CLICK ON THE SECOND SQUARE, THE AI STARTS THINKING;
            }
 
-           console.log(boardSquaresNum);
+           //console.log(boardSquaresNum);
 
 
             selectedFromSquare = null;
@@ -62,7 +62,7 @@ function moveValidity(fromSquare, toSquare){
       
      newMove = createUserMove(fromSquare, toSquare);
 
-     console.log('is the move ' + newMove + 'valid?')
+     //console.log('is the move ' + newMove + 'valid?')
 
       //IF THE MOVE IS NOT IN THIS LIST, THEN RETURN FALSE
 
@@ -71,7 +71,7 @@ function moveValidity(fromSquare, toSquare){
 
       if(moveExists(newMove) == true){
 
-        console.log('valid move');
+        //console.log('valid move');
 
            return true;
 
@@ -107,7 +107,7 @@ function moveExists(move){
 
       if(foundMove == true){
 
-          console.log('this move is valid!');
+          //console.log('this move is valid!');
 
           return true;
 
@@ -115,7 +115,7 @@ function moveExists(move){
 
       } else {
 
-          console.log('this move is invalid');
+          //console.log('this move is invalid');
 
       }
 
@@ -145,7 +145,7 @@ function moveExists(move){
 
          newSquare =  getSquare(rankSquare , fileSquare);
 
-         console.log(newSquare);
+         //console.log(newSquare);
          
 
          return newSquare;
@@ -200,7 +200,8 @@ function moveExists(move){
 
          //ACCORDING TO THE PIECE, THE ELEMENT WILL BE LOCATED AT A CERTAIN SPOT IN THE MOVE LIST
                  
-          
+
+         
  
 
          for(pieceIndex = 0 ; pieceIndex < activePlayerPieceList[getPieceIndex(piece, sides[activeSideIndex])].length; pieceIndex++){
@@ -241,7 +242,7 @@ function moveExists(move){
 
 
               
-          console.log(pieceIndex + ' piece ' + loopedOnPiece.piece + ' square ' + loopedOnPiece.square);
+          //console.log(pieceIndex + ' piece ' + loopedOnPiece.piece + ' square ' + loopedOnPiece.square);
 
           
       
@@ -249,7 +250,7 @@ function moveExists(move){
 
           if(loopedOnPiece.square == toSqFromChain){
 
-            console.log('found it');
+            //console.log('found it');
 
             //DELETE THE ELEMENT FROM THE LIST AT THE LOOPED ON INDEX
 
@@ -404,12 +405,9 @@ function moveExists(move){
 
       //ADD A PIECE OBJECT AND GIVE IT THE SQUARE TOSQ
 
-      console.log('at the index ' + getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1]) + ' ' + nonActivePlayerPieceList[getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1])].length + ' elements before adding the element');
 
       nonActivePlayerPieceList[getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1])].push({piece:  prevMoveCap, square: prevMoveToSq });
-      
-
-      console.log('at the index ' + getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1]) + ' ' +  nonActivePlayerPieceList[getPieceIndex( prevMoveCap, sides[activeSideIndex ^ 1])].length + ' elements after adding the element');
+    
 
 
       boardSquaresArray[prevMoveToSq].piece = prevMoveCap ;
@@ -490,7 +488,7 @@ function moveExists(move){
 
                   //CHECK IF THE PLAYER MADE A CHOICE
 
-                  console.log('checking...');
+                  //console.log('checking...');
 
 
                   if(promotedPieceChoice != noChoice){
@@ -501,7 +499,7 @@ function moveExists(move){
 
 
 
-                    console.log('timeout cleared..');
+                    //console.log('timeout cleared..');
 
 
 
@@ -564,9 +562,9 @@ function moveExists(move){
 
       if(side == white){
 
-        if(givenPiece == 13 || givenPiece == 0){
+        if(givenPiece == 13){
 
-          alert('the piece is an offboard object, or an empty object')
+            alert('your king was eaten! you lost.')
 
         }
         
@@ -574,9 +572,9 @@ function moveExists(move){
 
       } else {
 
-        if(givenPiece == 13 || givenPiece == 0){
+        if(givenPiece == 13){
 
-          alert('the piece is an offboard object, or an empty object')
+          alert('your king was eaten! you lost.')
 
         }
         
