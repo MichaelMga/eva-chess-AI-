@@ -7,10 +7,8 @@
   
   var board = document.getElementById('board');
 
-  var promotionChoiceInterface = document.getElementById('promotionChoiceInterface');
 
 
-  promotionChoiceInterface.style.opacity = 0;
 
 
    
@@ -315,11 +313,6 @@
 
 
 
-   function displayPromotionChoice(){
-
-      promotionChoiceInterface.style.opacity = 1;
-   
-   }
 
 
    function selectPromotedPiece(event){
@@ -386,11 +379,6 @@
      }
 
 
-     setTimeout(function(){
-
-        promotionChoiceInterface.style.opacity = 0;
-
-     },2000)
 
 
  }

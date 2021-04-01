@@ -479,8 +479,6 @@ function moveExists(move){
               if(ranksSquaresArray[fromSquare].rank == prePromotionRank){
 
 
-                displayPromotionChoice();
-
                 
                 choiceInterval = setInterval( function(){
 
@@ -564,7 +562,9 @@ function moveExists(move){
 
         if(givenPiece == 13){
 
-            alert('your king was eaten! you lost.')
+            alert('your king was eaten! you lost.');
+            window.location.reload();
+
 
         }
         
@@ -574,7 +574,9 @@ function moveExists(move){
 
         if(givenPiece == 13){
 
-          alert('your king was eaten! you lost.')
+          alert('your king was eaten! you lost.');
+
+          window.location.reload();
 
         }
         
