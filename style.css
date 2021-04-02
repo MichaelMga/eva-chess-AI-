@@ -9,7 +9,7 @@
 
 body{
 
-    background: #f5e0b6;
+    background: white;;
 }
 
 #backgroundContainer{
@@ -57,7 +57,6 @@ body{
 
     height: 12.5%;
 
-
     border: 1px solid;
 
     display: flex;
@@ -69,7 +68,7 @@ body{
 
     border: solid 1px;
 
-    background: #f5e0b6;
+    background: rgb(223, 200, 158);
 
     height: 100%;
 
@@ -95,7 +94,7 @@ body{
 
     border: solid 1px;
 
-    background: #cc9072;
+    background: #c28c71;
 
     height: 100%;
 
