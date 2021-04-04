@@ -20,9 +20,10 @@ function init(){
 
     initMvvLva();
 
-
+    setTimeout(
+        function(){startAiThinking()
+        },500);
     
-
 }
 
 
