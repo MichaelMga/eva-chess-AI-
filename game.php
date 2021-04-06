@@ -4,6 +4,9 @@ require 'header.php';
 ?>
 
 
+<div id='thinkingDiv'>
+  eva is thinking...
+</div>
 
 <div id="backgroundContainer">
      

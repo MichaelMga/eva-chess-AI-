@@ -12,6 +12,8 @@ function startAiThinking(){
     makeMove(bestMove);
     moveGuiPieces(FROMSQ(bestMove), TOSQ(bestMove));
 
+
+
 	
  }
 
